@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cult Club · A1 · Sustantivos y artículos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--pink:#FF2A85;--blue:#0013F6;--ink:#12122B;--muted:#6B6B85;--bg:#F6F5FB;--card:#fff;--line:#E6E4F0;--ok:#0BA46A}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Onest,system-ui,sans-serif;font-size:16px;line-height:1.45}
+.wrap{max-width:640px;margin:0 auto;padding:0 16px 120px}
+.hero{background:#ECEEFE;border-radius:0 0 28px 28px;margin:0 -16px;padding:22px 20px 0;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;width:240px;height:240px;border-radius:50%;background:#FFD6E7;right:-80px;top:-100px}
+.brand{position:relative;z-index:1;font-family:Unbounded;font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);text-decoration:none}
+.brand span{color:#fff;background:var(--pink);border-radius:6px;padding:2px 6px;margin-left:6px}
+.hero-row{position:relative;z-index:1;display:flex;align-items:flex-end;gap:8px;margin-top:14px}
+.hero-txt{flex:1;padding-bottom:22px}
+.tag{display:inline-block;font-size:12px;font-weight:600;background:#fff;color:var(--blue);border-radius:99px;padding:4px 10px;margin-bottom:10px}
+.hero h1{font-family:Unbounded;font-size:22px;line-height:1.2;margin:0 0 8px;font-weight:700}
+.hero p{margin:0;color:var(--muted);font-size:14px}
+.hero img{width:140px;flex:none;margin-right:-10px;margin-bottom:-4px}
+.panel{background:var(--card);border-radius:20px;padding:16px;margin-top:16px;border:1px solid var(--line)}
+.lbl{font-size:13px;color:var(--muted);font-weight:500}
+.in{width:100%;margin-top:6px;font:inherit;border:1.5px solid var(--line);border-radius:12px;padding:11px 12px;outline:none;background:#fff}
+.in:focus{border-color:var(--blue)}
+.note{font-size:13px;color:var(--muted);margin:10px 0 0}
+.sticky{position:sticky;top:0;z-index:5;background:var(--bg);padding:12px 0 8px}
+.prog-top{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);font-weight:500;margin-bottom:6px}
+.bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--pink));transition:width .25s}
+.ex{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin-top:14px}
+.ex-h{display:flex;gap:10px;align-items:flex-start;margin-bottom:12px}
+.ex-n{font-family:Unbounded;font-weight:800;font-size:13px;color:#fff;background:var(--blue);border-radius:10px;min-width:30px;height:30px;display:grid;place-items:center;flex:none}
+.ex-t{font-weight:600;font-size:16px;padding-top:4px}
+.row{padding:10px 0;border-top:1px dashed var(--line)}
+.row:first-of-type{border-top:none}
+.w{font-size:17px;font-weight:600}
+.w .slot{color:var(--blue);font-weight:700;display:inline-block;min-width:34px;border-bottom:2px solid var(--blue);text-align:center;margin-right:6px}
+.chips{display:flex;gap:8px;margin-top:8px}
+.chip{flex:1;font-family:Unbounded;font-weight:700;font-size:13px;border:1.5px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:10px 0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.chip.sel{background:var(--blue);border-color:var(--blue);color:#fff}
+.row .in{margin-top:6px}
+.row.inline{display:flex;align-items:center;gap:10px}
+.row.inline .w{flex:1}
+.row.inline .chips{margin-top:0;flex:none;width:176px}
+.row.inline .chip{padding:9px 0;font-size:12px}
+.dock{position:fixed;left:0;right:0;bottom:0;background:rgba(246,245,251,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
+.dock .inr{max-width:640px;margin:0 auto;display:flex;gap:10px}
+.btn{flex:1;font-family:Unbounded;font-weight:700;font-size:14px;border:none;border-radius:14px;padding:15px 14px;cursor:pointer}
+.btn.main{background:var(--pink);color:#fff}
+.btn.ghost{background:#fff;color:var(--blue);border:1.5px solid var(--blue)}
+.saved{font-size:12px;color:var(--ok);text-align:center;margin:6px 0 0;min-height:16px}
+.done{display:none;margin-top:18px;background:var(--card);border-radius:24px;border:1px solid var(--line);overflow:hidden;scroll-margin-top:70px}
+.done.on{display:block}
+.done-h{background:var(--pink);color:#fff;padding:18px 20px;display:flex;gap:14px;align-items:center;position:relative;overflow:hidden}
+.done-h:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;background:var(--blue);right:-60px;bottom:-90px}
+.done-h img{width:96px;background:#fff;border-radius:50%;padding:6px;position:relative;z-index:1}
+.done-h div{position:relative;z-index:1}
+.done-h b{font-family:Unbounded;font-size:20px;display:block}
+.done-b{padding:18px}
+.done-b p{margin:0 0 12px}
+.acts{display:flex;flex-direction:column;gap:10px}
+.msg{font-size:13px;color:var(--ok);text-align:center;min-height:18px}
+.confirm{display:none;background:#FFF0F6;border:1px solid #FFC2DB;border-radius:14px;padding:12px;font-size:14px}
+.confirm.on{display:block}
+.confirm .acts{flex-direction:row;margin-top:10px}
+.empty{color:var(--pink);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <a class="brand" href="./">Cult Club <span>Español</span></a>
+    <div class="hero-row">
+      <div class="hero-txt">
+        <div class="tag">Libro A1 · Ejercicios, стр. 9</div>
+        <h1>Sustantivos y artículos</h1>
+        <p>Существительные и артикли. Заполни всё, а проверим вместе на уроке.</p>
+      </div>
+      <img src="assets/capy-study.webp" alt="Капибара делает домашку">
+    </div>
+  </header>
+
+  <div class="panel">
+    <label class="lbl" for="nm">Твоё имя (для педагога)</label>
+    <input id="nm" class="in" placeholder="Например, Аня" autocomplete="given-name">
+    <p class="note">Ответы сохраняются на этом устройстве автоматически. Можно закрыть страницу и вернуться позже.</p>
+  </div>
+
+  <div class="sticky">
+    <div class="prog-top"><span id="progTxt"></span><span id="progPct"></span></div>
+    <div class="bar"><i id="progBar"></i></div>
+  </div>
+
+  <div id="exs"></div>
+
+  <section class="done" id="done">
+    <div class="done-h">
+      <img src="assets/capy-success.webp" alt="Капибара радуется">
+      <div><b>¡Listo!</b><span id="doneT"></span></div>
+    </div>
+    <div class="done-b">
+      <p>Отправь ответы педагогу в чат группы. Проверим их вместе на уроке.</p>
+      <div class="acts">
+        <button class="btn main" id="copyBtn">Скопировать ответы</button>
+        <div class="msg" id="msg"></div>
+        <button class="btn ghost" id="backBtn">Вернуться к заданиям</button>
+        <button class="btn ghost" id="clearBtn">Очистить все ответы</button>
+        <div class="confirm" id="confirm">Стереть все ответы на этом устройстве? Вернуть их будет нельзя.
+          <div class="acts"><button class="btn main" id="yesClear">Стереть</button><button class="btn ghost" id="noClear">Отмена</button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="dock" id="dock">
+  <div class="inr"><button class="btn main" id="finishBtn">Готово</button></div>
+  <p class="saved" id="saved"></p>
+</div>
+
+<script>
+/* ===== Содержание задания. Для новой страницы меняется только этот блок ===== */
+const PAGE_ID="a1-ejercicios-1";
+const PAGE_TITLE="Libro A1 · Ejercicios стр. 9 · Sustantivos y artículos";
+const EXERCISES=[
+ {t:"Какой род у слов ниже?", type:"choice", options:["мужской","женский"],
+  items:["una lámpara","una tele","el papel","la puerta","una ventana","un sombrero","la pared","el sillón"]},
+ {t:"Поставь перед существительными правильный неопределённый артикль", type:"choice", options:["un","una"], slot:true,
+  items:["mesa","lápiz","libro","silla","armario","bolso","habitación","profesión","profesor","profesora","cama"]},
+ {t:"Поставь перед существительными правильный определённый артикль", type:"choice", options:["el","la"], slot:true,
+  items:["perro","bolso","chico","chica","taza","lámpara","silla","gato","jirafa","oso","pareja"]},
+ {t:"Скажи по-испански эти слова с неопределённым артиклем", type:"text", ph:"un / una + слово",
+  items:["мальчик","стол","собака","сумка","девочка","книга","тетрадь","стул","телевизор"]},
+ {t:"Скажи по-испански эти слова с определённым артиклем", type:"text", ph:"el / la + слово",
+  items:["лампа","окно","телефон","учитель","ручка","карандаш","цветок","компьютер","город"]},
+ {t:"Поставь словосочетания во множественное число", type:"text", ph:"множественное число",
+  items:["libro rojo","ventana blanca","montaña alta","cama grande","mesa marrón"]}
+];
+/* ===== конец блока ===== */
+
+const KEY="cc_"+PAGE_ID;
+let st={name:"",a:{}};
+try{const s=localStorage.getItem(KEY); if(s) st=JSON.parse(s);}catch(e){}
+const $=id=>document.getElementById(id);
+const total=EXERCISES.reduce((n,e)=>n+e.items.length,0);
+let saveT;
+function save(){
+  try{localStorage.setItem(KEY,JSON.stringify(st)); $("saved").textContent="Сохранено";}catch(e){$("saved").textContent="";}
+  clearTimeout(saveT); saveT=setTimeout(()=>$("saved").textContent="",1500);
+  progress();
+}
+function k(ei,ii){return ei+"_"+ii}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function render(){
+  $("exs").innerHTML=EXERCISES.map((e,ei)=>`
+   <section class="ex"><div class="ex-h"><span class="ex-n">${ei+1}</span><span class="ex-t">${e.t}</span></div>
+   ${e.items.map((w,ii)=>{
+     const v=st.a[k(ei,ii)]||"";
+     if(e.type==="choice") return `<div class="row${e.options.length<=2?" inline":""}"><div class="w">${e.slot?`<span class="slot" id="s${k(ei,ii)}">${esc(v)||"&nbsp;"}</span>`:""}${w}</div>
+       <div class="chips">${e.options.map(o=>`<button class="chip${v===o?" sel":""}" data-k="${k(ei,ii)}" data-v="${o}">${o}</button>`).join("")}</div></div>`;
+     return `<div class="row"><div class="w">${w}</div><input class="in" data-k="${k(ei,ii)}" value="${esc(v)}" placeholder="${e.ph}" autocapitalize="off" autocomplete="off" spellcheck="false"></div>`;
+   }).join("")}</section>`).join("");
+}
+document.addEventListener("click",ev=>{
+  const b=ev.target.closest(".chip"); if(!b) return;
+  const key=b.dataset.k, v=b.dataset.v;
+  st.a[key]= st.a[key]===v ? "" : v;
+  b.parentNode.querySelectorAll(".chip").forEach(c=>c.classList.toggle("sel",c.dataset.v===st.a[key]));
+  const s=$("s"+key); if(s) s.innerHTML=esc(st.a[key])||"&nbsp;";
+  save();
+});
+document.addEventListener("input",ev=>{
+  const i=ev.target; if(i.id==="nm"){st.name=i.value;save();return;}
+  if(i.dataset.k){st.a[i.dataset.k]=i.value;save();}
+});
+function filled(){return Object.values(st.a).filter(v=>v&&v.trim()).length}
+function progress(){
+  const n=filled(), p=Math.round(n/total*100);
+  $("progTxt").textContent=`Заполнено ${n} из ${total}`; $("progPct").textContent=p+"%"; $("progBar").style.width=p+"%";
+}
+function text(){
+  let t=`${PAGE_TITLE}\n${(st.name||"").trim()||"[имя]"}\n`;
+  EXERCISES.forEach((e,ei)=>{
+    t+=`\n${ei+1}) ${e.t}\n`;
+    e.items.forEach((w,ii)=>{
+      const v=(st.a[k(ei,ii)]||"").trim()||"(пусто)";
+      t+= e.slot ? `${v} ${w}\n` : `${w}: ${v}\n`;
+    });
+  });
+  return t;
+}
+$("finishBtn").onclick=()=>{
+  const n=filled();
+  $("doneT").textContent= n===total ? "Все задания заполнены." : `Заполнено ${n} из ${total}. Можно вернуться и дописать.`;
+  $("done").classList.add("on"); $("dock").style.display="none";
+  $("done").scrollIntoView({behavior:"smooth"});
+};
+$("backBtn").onclick=()=>{$("done").classList.remove("on");$("dock").style.display="block";window.scrollTo({top:0,behavior:"smooth"});};
+$("copyBtn").onclick=async()=>{
+  try{await navigator.clipboard.writeText(text()); $("msg").textContent="Скопировано. Вставь в чат группы.";}
+  catch(e){$("msg").textContent="Не получилось скопировать. Сделай скриншот страницы.";}
+};
+$("clearBtn").onclick=()=>$("confirm").classList.add("on");
+$("noClear").onclick=()=>$("confirm").classList.remove("on");
+$("yesClear").onclick=()=>{st={name:"",a:{}};try{localStorage.removeItem(KEY)}catch(e){}; $("nm").value=""; render(); progress(); $("confirm").classList.remove("on"); $("backBtn").click();};
+$("nm").value=st.name||"";
+render(); progress();
+</script>
+</body>
+</html>
