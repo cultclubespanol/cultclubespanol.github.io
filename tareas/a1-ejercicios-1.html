@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--pink:#FF2A85;--blue:#0013F6;--ink:#12122B;--muted:#6B6B85;--bg:#F6F5FB;--card:#fff;--line:#E6E4F0;--ok:#0BA46A}
+:root{--pink:#FF2A85;--blue:#0013F6;--ink:#12122B;--muted:#6B6B85;--bg:#F6F5FB;--card:#fff;--line:#E6E4F0;--ok:#0BA46A;--okbg:#E6F7EF;--bad:#E5245F;--badbg:#FFE8EF;--warn:#B26A00}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:Onest,system-ui,sans-serif;font-size:16px;line-height:1.45}
 .wrap{max-width:640px;margin:0 auto;padding:0 16px 120px}
@@ -23,63 +23,73 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:Onest,system-ui,
 .hero p{margin:0;color:var(--muted);font-size:14px}
 .hero img{width:140px;flex:none;margin-right:-10px;margin-bottom:-4px}
 .panel{background:var(--card);border-radius:20px;padding:16px;margin-top:16px;border:1px solid var(--line)}
-.lbl{font-size:13px;color:var(--muted);font-weight:500}
-.in{width:100%;margin-top:6px;font:inherit;border:1.5px solid var(--line);border-radius:12px;padding:11px 12px;outline:none;background:#fff}
-.in:focus{border-color:var(--blue)}
-.note{font-size:13px;color:var(--muted);margin:10px 0 0}
+.note{font-size:13px;color:var(--muted);margin:0}
+.reset{margin-top:10px;background:none;border:none;color:var(--pink);font:600 14px Onest,sans-serif;padding:0;cursor:pointer;text-decoration:underline}
+.sw{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:14px;cursor:pointer}
+.sw input{width:18px;height:18px;accent-color:var(--pink)}
 .sticky{position:sticky;top:0;z-index:5;background:var(--bg);padding:12px 0 8px}
 .prog-top{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);font-weight:500;margin-bottom:6px}
 .bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden}
 .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--pink));transition:width .25s}
 .ex{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin-top:14px}
-.ex-h{display:flex;gap:10px;align-items:flex-start;margin-bottom:12px}
+.ex-h{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px}
 .ex-n{font-family:Unbounded;font-weight:800;font-size:13px;color:#fff;background:var(--blue);border-radius:10px;min-width:30px;height:30px;display:grid;place-items:center;flex:none}
 .ex-t{font-weight:600;font-size:16px;padding-top:4px}
-.row{padding:10px 0;border-top:1px dashed var(--line)}
-.row:first-of-type{border-top:none}
+.row{padding:10px 8px;margin:0 -8px;border-top:1px dashed var(--line);border-radius:12px}
 .w{font-size:17px;font-weight:600}
-.w .slot{color:var(--blue);font-weight:700;display:inline-block;min-width:34px;border-bottom:2px solid var(--blue);text-align:center;margin-right:6px}
+.tr{font-size:13px;color:var(--muted);font-weight:400;margin-left:6px;display:none}
+body.show-tr .tr{display:inline}
+.slot{color:var(--blue);font-weight:700;display:inline-block;min-width:34px;border-bottom:2px solid var(--blue);text-align:center;margin-right:6px}
 .chips{display:flex;gap:8px;margin-top:8px}
 .chip{flex:1;font-family:Unbounded;font-weight:700;font-size:13px;border:1.5px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:10px 0;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .chip.sel{background:var(--blue);border-color:var(--blue);color:#fff}
-.row .in{margin-top:6px}
 .row.inline{display:flex;align-items:center;gap:10px}
 .row.inline .w{flex:1}
 .row.inline .chips{margin-top:0;flex:none;gap:6px}
 .row.inline .chip{padding:9px 8px;font-size:12px;min-width:46px}
+.in{width:100%;margin-top:6px;font:inherit;border:1.5px solid var(--line);border-radius:12px;padding:11px 12px;outline:none;background:#fff}
+.in:focus{border-color:var(--blue)}
+.row.ok{background:var(--okbg)}
+.row.bad{background:var(--badbg)}
+.row.ok .chip.sel{background:var(--ok);border-color:var(--ok)}
+.row.bad .chip.sel{background:var(--bad);border-color:var(--bad)}
+.row.ok .in{border-color:var(--ok)}
+.row.bad .in{border-color:var(--bad)}
+.row.done .chip,.row.done .in{pointer-events:none}
+.row.inline.done{flex-wrap:wrap}
+.fb{display:none;width:100%;font-size:14px;margin-top:8px}
+.row.done .fb{display:block}
+.fb .warn{color:var(--warn)}
 .dock{position:fixed;left:0;right:0;bottom:0;background:rgba(246,245,251,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
 .dock .inr{max-width:640px;margin:0 auto;display:flex;gap:10px}
 .btn{flex:1;font-family:Unbounded;font-weight:700;font-size:14px;border:none;border-radius:14px;padding:15px 14px;cursor:pointer}
 .btn.main{background:var(--pink);color:#fff}
 .btn.ghost{background:#fff;color:var(--blue);border:1.5px solid var(--blue)}
-.saved{font-size:12px;color:var(--ok);text-align:center;margin:6px 0 0;min-height:16px}
-.done{display:none;margin-top:18px;background:var(--card);border-radius:24px;border:1px solid var(--line);overflow:hidden;scroll-margin-top:70px}
-.done.on{display:block}
-.done-h{background:var(--pink);color:#fff;padding:18px 20px;display:flex;gap:14px;align-items:center;position:relative;overflow:hidden}
-.done-h:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;background:var(--blue);right:-60px;bottom:-90px}
-.done-h img{width:96px;background:#fff;border-radius:50%;padding:6px;position:relative;z-index:1}
-.done-h div{position:relative;z-index:1}
-.done-h b{font-family:Unbounded;font-size:20px;display:block}
-.done-b{padding:18px}
-.done-b p{margin:0 0 12px}
-.acts{display:flex;flex-direction:column;gap:10px}
-.msg{font-size:13px;color:var(--ok);text-align:center;min-height:18px}
-.confirm{display:none;background:#FFF0F6;border:1px solid #FFC2DB;border-radius:14px;padding:12px;font-size:14px}
+.hint{font-size:13px;color:var(--bad);text-align:center;margin:6px 0 0;min-height:16px}
+.result{display:none;margin-top:18px;background:var(--card);border-radius:24px;border:1px solid var(--line);overflow:hidden;scroll-margin-top:70px}
+.result.on{display:block}
+.res-head{background:var(--pink);color:#fff;padding:20px;display:flex;align-items:center;gap:14px;position:relative;overflow:hidden}
+.res-head:after{content:"";position:absolute;width:160px;height:160px;border-radius:50%;background:var(--blue);right:-60px;bottom:-90px}
+.res-head img{width:104px;flex:none;position:relative;z-index:1;background:#fff;border-radius:50%;padding:6px}
+.res-head .sc{position:relative;z-index:1}
+.score-n{font-family:Unbounded;font-size:38px;font-weight:800;line-height:1}
+.score-n small{font-size:18px;opacity:.8}
+.score-t{font-size:15px;margin-top:6px;font-weight:500}
+.res-body{padding:18px}
+.res-body h2{font-family:Unbounded;font-size:15px;margin:0 0 10px}
+.err{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.err:last-child{border-bottom:none}
+.err .n{font-family:Unbounded;font-size:11px;color:var(--muted);min-width:34px;padding-top:2px}
+.err .was{color:var(--bad);text-decoration:line-through}
+.err .is{color:var(--ok);font-weight:700}
+.err p{margin:3px 0 0;color:var(--muted)}
+.rules{margin-top:16px;background:#EEF0FF;border-radius:16px;padding:14px 16px;font-size:14px}
+.rules b{color:var(--blue)}
+.rules ul{margin:6px 0 0;padding-left:18px}
+.acts{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+.confirm{display:none;background:#FFF0F6;border:1px solid #FFC2DB;border-radius:14px;padding:12px;font-size:14px;margin-top:10px}
 .confirm.on{display:block}
-.confirm .acts{flex-direction:row;margin-top:10px}
-.mk{display:none;gap:6px;margin-top:8px}
-body.check .mk{display:flex}
-.mk button{flex:1;font:600 14px Onest,sans-serif;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:8px 0;cursor:pointer}
-.mk .y.on{background:var(--ok);border-color:var(--ok);color:#fff}
-.mk .n.on{background:#E5245F;border-color:#E5245F;color:#fff}
-.row.m-ok{background:#E6F7EF;border-radius:12px;padding-left:8px;padding-right:8px}
-.row.m-bad{background:#FFE8EF;border-radius:12px;padding-left:8px;padding-right:8px}
-body.check .row.inline{flex-wrap:wrap}
-body.check .row.inline .mk{width:100%}
-.checkbar{display:none;background:var(--blue);color:#fff;border-radius:16px;padding:12px 14px;margin-top:14px;font-size:14px}
-body.check .checkbar{display:block}
-.reset{margin-top:10px;background:none;border:none;color:var(--pink);font:600 14px Onest,sans-serif;padding:0;cursor:pointer;text-decoration:underline}
-.score{font-family:Unbounded;font-weight:800;font-size:28px;margin:4px 0 0}
+.confirm .row2{display:flex;gap:10px;margin-top:10px}
 </style>
 </head>
 <body>
@@ -90,17 +100,18 @@ body.check .checkbar{display:block}
       <div class="hero-txt">
         <div class="tag">Libro A1 · стр. 9, упр. 1–5</div>
         <h1>Sustantivos y artículos</h1>
-        <p>Существительные и артикли. Заполни дома, а проверим вместе на уроке.</p>
+        <p>Существительные и артикли. Ответь на всё и нажми «Проверить».</p>
       </div>
       <img src="assets/capy-study.webp" alt="Капибара делает домашку">
     </div>
   </header>
 
   <div class="panel">
-    <p class="note" style="margin:0">Ответы сохраняются на этом устройстве автоматически. Можно закрыть страницу и вернуться позже.</p>
+    <p class="note">Ответы сохраняются на этом устройстве. Можно закрыть страницу и вернуться позже.</p>
+    <label class="sw" id="trWrap"><input type="checkbox" id="trToggle"> Показать перевод слов</label>
     <button class="reset" id="topClear">Начать заново</button>
-    <div class="confirm" id="confirm2" style="margin-top:10px">Стереть все ответы и отметки на этом устройстве? Вернуть их будет нельзя.
-      <div class="acts"><button class="btn main" id="yesClear2">Стереть</button><button class="btn ghost" id="noClear2">Отмена</button></div>
+    <div class="confirm" id="confirm">Стереть все ответы на этом устройстве? Вернуть их будет нельзя.
+      <div class="row2"><button class="btn main" id="yesClear">Стереть</button><button class="btn ghost" id="noClear">Отмена</button></div>
     </div>
   </div>
 
@@ -109,126 +120,503 @@ body.check .checkbar{display:block}
     <div class="bar"><i id="progBar"></i></div>
   </div>
 
-  <div class="checkbar" id="checkbar"><b>Режим проверки.</b> Педагог называет правильные ответы, ты отмечаешь у себя ✓ или ✗. Неверный ответ можно исправить прямо в поле.</div>
   <div id="exs"></div>
 
-  <section class="done" id="done">
-    <div class="done-h">
-      <img src="assets/capy-success.webp" alt="Капибара радуется">
-      <div><b id="doneB">¡Listo!</b><span id="doneT"></span></div>
+  <section class="result" id="result">
+    <div class="res-head">
+      <img id="resImg" src="assets/capy-study.webp" alt="Капибара">
+      <div class="sc"><div class="score-n" id="scoreN"></div><div class="score-t" id="scoreT"></div></div>
     </div>
-    <div class="done-b">
-      <p id="doneP">Ответы сохранены на этом устройстве. На уроке открой эту же страницу и нажми «Проверяем на уроке».</p>
+    <div class="res-body">
+      <div id="errBox"></div>
+      
       <div class="acts">
-        <button class="btn main" id="checkModeBtn">Проверяем на уроке</button>
-        <button class="btn ghost" id="backBtn">Вернуться к заданиям</button>
-        <button class="btn ghost" id="clearBtn">Очистить все ответы</button>
-        <div class="confirm" id="confirm">Стереть все ответы на этом устройстве? Вернуть их будет нельзя.
-          <div class="acts"><button class="btn main" id="yesClear">Стереть</button><button class="btn ghost" id="noClear">Отмена</button></div>
-        </div>
+        <button class="btn main" id="fixBtn">Исправить ошибки</button>
+        <button class="btn ghost" id="resetBtn">Пройти заново</button>
       </div>
     </div>
   </section>
 </div>
 
 <div class="dock" id="dock">
-  <div class="inr"><button class="btn main" id="finishBtn">Готово</button></div>
-  <p class="saved" id="saved"></p>
+  <div class="inr"><button class="btn main" id="checkBtn">Проверить</button></div>
+  <p class="hint" id="hint"></p>
 </div>
 
 <script>
-/* ===== Содержание задания. Для новой страницы меняется только этот блок ===== */
 const PAGE_ID="a1-ejercicios-1";
-const PAGE_TITLE="Libro A1 · стр. 9, упр. 1–5 · Sustantivos y artículos";
 const EXERCISES=[
- {t:"Какой род у слов ниже?", type:"choice", options:["мужской","женский"],
-  items:["una lámpara","una tele","el papel","la puerta","una ventana","un sombrero","la pared","el sillón"]},
- {t:"Поставь перед существительными правильный неопределённый артикль", type:"choice", options:["un","una"], slot:true,
-  items:["mesa","lápiz","libro","silla","armario","bolso","habitación","profesión","profesor","profesora","cama"]},
- {t:"Поставь перед существительными правильный определённый артикль", type:"choice", options:["el","la"], slot:true,
-  items:["perro","bolso","chico","chica","taza","lámpara","silla","gato","jirafa","oso","pareja"]},
- {t:"Скажи по-испански эти слова с неопределённым артиклем", type:"text", ph:"un / una + слово",
-  items:["мальчик","стол","собака","сумка","девочка","книга","тетрадь","стул","телевизор"]},
- {t:"Скажи по-испански эти слова с определённым артиклем", type:"text", ph:"el / la + слово",
-  items:["лампа","окно","телефон","учитель","ручка","карандаш","цветок","компьютер","город"]}
+ {
+  "t": "Какой род у слов ниже?",
+  "type": "choice",
+  "options": [
+   "мужской",
+   "женский"
+  ],
+  "items": [
+   {
+    "w": "una lámpara",
+    "ok": [
+     "женский"
+    ],
+    "ex": "Артикль una подсказывает: женский род."
+   },
+   {
+    "w": "una tele",
+    "ok": [
+     "женский"
+    ],
+    "ex": "Tele это сокращение от la televisión, женский род."
+   },
+   {
+    "w": "el papel",
+    "ok": [
+     "мужской"
+    ],
+    "ex": "Артикль el подсказывает: мужской род."
+   },
+   {
+    "w": "la puerta",
+    "ok": [
+     "женский"
+    ]
+   },
+   {
+    "w": "una ventana",
+    "ok": [
+     "женский"
+    ]
+   },
+   {
+    "w": "un sombrero",
+    "ok": [
+     "мужской"
+    ]
+   },
+   {
+    "w": "la pared",
+    "ok": [
+     "женский"
+    ],
+    "ex": "Pared женского рода, хотя оканчивается на согласную. Артикль la подсказывает."
+   },
+   {
+    "w": "el sillón",
+    "ok": [
+     "мужской"
+    ]
+   }
+  ]
+ },
+ {
+  "t": "Поставь перед существительными правильный неопределённый артикль",
+  "type": "choice",
+  "options": [
+   "un",
+   "una"
+  ],
+  "slot": true,
+  "items": [
+   {
+    "w": "mesa",
+    "ok": [
+     "una"
+    ],
+    "ex": "Окончание -a, женский род."
+   },
+   {
+    "w": "lápiz",
+    "ok": [
+     "un"
+    ],
+    "ex": "Lápiz мужского рода: un lápiz."
+   },
+   {
+    "w": "libro",
+    "ok": [
+     "un"
+    ],
+    "ex": "Окончание -o, мужской род."
+   },
+   {
+    "w": "silla",
+    "ok": [
+     "una"
+    ],
+    "ex": "Окончание -a, женский род."
+   },
+   {
+    "w": "armario",
+    "ok": [
+     "un"
+    ],
+    "ex": "Окончание -o, мужской род."
+   },
+   {
+    "w": "bolso",
+    "ok": [
+     "un"
+    ],
+    "ex": "Окончание -o, мужской род."
+   },
+   {
+    "w": "habitación",
+    "ok": [
+     "una"
+    ],
+    "ex": "Слова на -ción женского рода."
+   },
+   {
+    "w": "profesión",
+    "ok": [
+     "una"
+    ],
+    "ex": "Слова на -sión женского рода."
+   },
+   {
+    "w": "profesor",
+    "ok": [
+     "un"
+    ],
+    "ex": "Слова на -or обычно мужского рода."
+   },
+   {
+    "w": "profesora",
+    "ok": [
+     "una"
+    ],
+    "ex": "Окончание -a, женский род."
+   },
+   {
+    "w": "cama",
+    "ok": [
+     "una"
+    ],
+    "ex": "Окончание -a, женский род."
+   }
+  ]
+ },
+ {
+  "t": "Поставь перед существительными правильный определённый артикль",
+  "type": "choice",
+  "options": [
+   "el",
+   "la"
+  ],
+  "slot": true,
+  "items": [
+   {
+    "w": "perro",
+    "ok": [
+     "el"
+    ],
+    "ex": "Окончание -o, мужской род."
+   },
+   {
+    "w": "bolso",
+    "ok": [
+     "el"
+    ],
+    "ex": "Окончание -o, мужской род."
+   },
+   {
+    "w": "chico",
+    "ok": [
+     "el"
+    ],
+    "ex": "Окончание -o, мужской род."
+   },
+   {
+    "w": "chica",
+    "ok": [
+     "la"
+    ],
+    "ex": "Окончание -a, женский род."
+   },
+   {
+    "w": "taza",
+    "ok": [
+     "la"
+    ],
+    "ex": "Окончание -a, женский род."
+   },
+   {
+    "w": "lámpara",
+    "ok": [
+     "la"
+    ],
+    "ex": "Окончание -a, женский род."
+   },
+   {
+    "w": "silla",
+    "ok": [
+     "la"
+    ],
+    "ex": "Окончание -a, женский род."
+   },
+   {
+    "w": "gato",
+    "ok": [
+     "el"
+    ],
+    "ex": "Окончание -o, мужской род."
+   },
+   {
+    "w": "jirafa",
+    "ok": [
+     "la"
+    ],
+    "ex": "Окончание -a, женский род."
+   },
+   {
+    "w": "oso",
+    "ok": [
+     "el"
+    ],
+    "ex": "Окончание -o, мужской род."
+   },
+   {
+    "w": "pareja",
+    "ok": [
+     "la"
+    ],
+    "ex": "Окончание -a, женский род."
+   }
+  ]
+ },
+ {
+  "t": "Скажи по-испански эти слова с неопределённым артиклем",
+  "type": "text",
+  "ph": "un / una + слово",
+  "items": [
+   {
+    "w": "мальчик",
+    "ok": [
+     "un chico",
+     "un nene",
+     "un niño"
+    ]
+   },
+   {
+    "w": "стол",
+    "ok": [
+     "una mesa"
+    ]
+   },
+   {
+    "w": "собака",
+    "ok": [
+     "un perro"
+    ]
+   },
+   {
+    "w": "сумка",
+    "ok": [
+     "un bolso",
+     "una cartera",
+     "una bolsa"
+    ]
+   },
+   {
+    "w": "девочка",
+    "ok": [
+     "una chica",
+     "una nena",
+     "una niña"
+    ]
+   },
+   {
+    "w": "книга",
+    "ok": [
+     "un libro"
+    ]
+   },
+   {
+    "w": "тетрадь",
+    "ok": [
+     "un cuaderno"
+    ]
+   },
+   {
+    "w": "стул",
+    "ok": [
+     "una silla"
+    ]
+   },
+   {
+    "w": "телевизор",
+    "ok": [
+     "un televisor",
+     "una tele",
+     "una televisión"
+    ]
+   }
+  ]
+ },
+ {
+  "t": "Скажи по-испански эти слова с определённым артиклем",
+  "type": "text",
+  "ph": "el / la + слово",
+  "items": [
+   {
+    "w": "лампа",
+    "ok": [
+     "la lámpara"
+    ]
+   },
+   {
+    "w": "окно",
+    "ok": [
+     "la ventana"
+    ]
+   },
+   {
+    "w": "телефон",
+    "ok": [
+     "el teléfono",
+     "el celular"
+    ]
+   },
+   {
+    "w": "учитель",
+    "ok": [
+     "el profesor",
+     "la profesora",
+     "el maestro",
+     "la maestra"
+    ]
+   },
+   {
+    "w": "ручка",
+    "ok": [
+     "la lapicera",
+     "la birome",
+     "el bolígrafo",
+     "la pluma"
+    ],
+    "ex": "В Аргентине говорят la lapicera или la birome."
+   },
+   {
+    "w": "карандаш",
+    "ok": [
+     "el lápiz"
+    ]
+   },
+   {
+    "w": "цветок",
+    "ok": [
+     "la flor"
+    ],
+    "ex": "Flor женского рода: la flor."
+   },
+   {
+    "w": "компьютер",
+    "ok": [
+     "la computadora",
+     "el ordenador",
+     "la compu"
+    ],
+    "ex": "В Аргентине говорят la computadora. El ordenador говорят в Испании."
+   },
+   {
+    "w": "город",
+    "ok": [
+     "la ciudad"
+    ],
+    "ex": "Слова на -dad женского рода."
+   }
+  ]
+ }
 ];
-/* ===== конец блока ===== */
-
-const KEY="cc_"+PAGE_ID;
-let st={a:{},m:{},check:false};
+const KEY="ccv2_"+PAGE_ID;
+let st={a:{},checked:false};
 try{const s=localStorage.getItem(KEY); if(s) st=Object.assign(st,JSON.parse(s));}catch(e){}
-st.m=st.m||{};
 const $=id=>document.getElementById(id);
-const total=EXERCISES.reduce((n,e)=>n+e.items.length,0);
-let saveT;
-function save(){
-  try{localStorage.setItem(KEY,JSON.stringify(st)); $("saved").textContent="Сохранено";}catch(e){$("saved").textContent="";}
-  clearTimeout(saveT); saveT=setTimeout(()=>$("saved").textContent="",1500);
-  progress();
-}
-function k(ei,ii){return ei+"_"+ii}
+const ITEMS=[]; EXERCISES.forEach((e,ei)=>e.items.forEach((it,ii)=>ITEMS.push({e,ei,ii,it,k:ei+"_"+ii})));
+const total=ITEMS.length;
+if(!ITEMS.some(x=>x.it.tr)) $("trWrap").style.display="none";
+function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){} progress();}
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+const norm=s=>String(s||"").toLowerCase().replace(/[¡!¿?.,;:]/g," ").replace(/\s+/g," ").trim();
+const plain=s=>norm(s).normalize("NFD").replace(/[̀-ͯ]/g,"");
+function grade(x){
+  const v=st.a[x.k]||"";
+  if(x.e.type==="choice") return {ok:x.it.ok.includes(v)};
+  const n=norm(v), p=plain(v);
+  for(const o of x.it.ok){ if(norm(o)===n) return {ok:true}; }
+  for(const o of x.it.ok){ if(plain(o)===p) return {ok:true,accent:o}; }
+  return {ok:false};
+}
+function shown(x){ return x.e.type==="choice" ? (x.e.slot?`${st.a[x.k]||"___"} ${x.it.w}`:`${x.it.w}: ${st.a[x.k]||"___"}`) : (st.a[x.k]||"(пусто)"); }
+function right(x){ return x.e.type==="choice" ? (x.e.slot?`${x.it.ok.join(" / ")} ${x.it.w}`:`${x.it.w}: ${x.it.ok.join(" / ")}`) : x.it.ok.slice(0,3).join(" / "); }
 function render(){
   $("exs").innerHTML=EXERCISES.map((e,ei)=>`
    <section class="ex"><div class="ex-h"><span class="ex-n">${ei+1}</span><span class="ex-t">${e.t}</span></div>
-   ${e.items.map((w,ii)=>{
-     const v=st.a[k(ei,ii)]||"";
-     const mk=`<div class="mk"><button class="y${st.m[k(ei,ii)]==="ok"?" on":""}" data-m="ok" data-k="${k(ei,ii)}">✓ верно</button><button class="n${st.m[k(ei,ii)]==="bad"?" on":""}" data-m="bad" data-k="${k(ei,ii)}">✗ ошибка</button></div>`;
-     const rc=st.m[k(ei,ii)]==="ok"?" m-ok":st.m[k(ei,ii)]==="bad"?" m-bad":"";
-     if(e.type==="choice") return `<div class="row${rc}${e.options.length<=2?" inline":""}"><div class="w">${e.slot?`<span class="slot" id="s${k(ei,ii)}">${esc(v)||"&nbsp;"}</span>`:""}${w}</div>
-       <div class="chips">${e.options.map(o=>`<button class="chip${v===o?" sel":""}" data-k="${k(ei,ii)}" data-v="${o}">${o}</button>`).join("")}</div>${mk}</div>`;
-     return `<div class="row${rc}"><div class="w">${w}</div><input class="in" data-k="${k(ei,ii)}" value="${esc(v)}" placeholder="${e.ph}" autocapitalize="off" autocomplete="off" spellcheck="false">${mk}</div>`;
+   ${e.items.map((it,ii)=>{
+     const k=ei+"_"+ii, v=st.a[k]||"", tr=it.tr?`<span class="tr">${it.tr}</span>`:"";
+     if(e.type==="choice") return `<div class="row${e.options.length<=2?" inline":""}" id="r${k}"><div class="w">${e.slot?`<span class="slot" id="s${k}">${esc(v)||"&nbsp;"}</span>`:""}${it.w}${tr}</div>
+       <div class="chips">${e.options.map(o=>`<button class="chip${v===o?" sel":""}" data-k="${k}" data-v="${o}">${o}</button>`).join("")}</div><div class="fb" id="f${k}"></div></div>`;
+     return `<div class="row" id="r${k}"><div class="w">${it.w}${tr}</div><input class="in" data-k="${k}" value="${esc(v)}" placeholder="${e.ph||""}" autocapitalize="off" autocomplete="off" spellcheck="false"><div class="fb" id="f${k}"></div></div>`;
    }).join("")}</section>`).join("");
 }
 document.addEventListener("click",ev=>{
-  const m=ev.target.closest(".mk button");
-  if(m){const key=m.dataset.k; st.m[key]= st.m[key]===m.dataset.m?"":m.dataset.m;
-    const row=m.closest(".row"); row.classList.toggle("m-ok",st.m[key]==="ok"); row.classList.toggle("m-bad",st.m[key]==="bad");
-    m.parentNode.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x.dataset.m===st.m[key])); save(); return;}
   const b=ev.target.closest(".chip"); if(!b) return;
-  const key=b.dataset.k, v=b.dataset.v;
-  st.a[key]= st.a[key]===v ? "" : v;
-  b.parentNode.querySelectorAll(".chip").forEach(c=>c.classList.toggle("sel",c.dataset.v===st.a[key]));
-  const s=$("s"+key); if(s) s.innerHTML=esc(st.a[key])||"&nbsp;";
-  save();
+  const k=b.dataset.k; if($("r"+k).classList.contains("done")) return;
+  st.a[k]= st.a[k]===b.dataset.v ? "" : b.dataset.v;
+  b.parentNode.querySelectorAll(".chip").forEach(c=>c.classList.toggle("sel",c.dataset.v===st.a[k]));
+  const s=$("s"+k); if(s) s.innerHTML=esc(st.a[k])||"&nbsp;";
+  $("hint").textContent=""; save();
 });
-document.addEventListener("input",ev=>{
-  const i=ev.target;
-  if(i.dataset.k){st.a[i.dataset.k]=i.value;save();}
-});
-function filled(){return Object.values(st.a).filter(v=>v&&v.trim()).length}
-function marks(){const v=Object.values(st.m);return{ok:v.filter(x=>x==="ok").length,bad:v.filter(x=>x==="bad").length}}
-function progress(){
-  if(st.check){const c=marks(), n=c.ok+c.bad, p=Math.round(n/total*100);
-    $("progTxt").textContent=`Проверено ${n} из ${total} · ✓ ${c.ok} · ✗ ${c.bad}`; $("progPct").textContent=p+"%"; $("progBar").style.width=p+"%"; return;}
-  const n=filled(), p=Math.round(n/total*100);
-  $("progTxt").textContent=`Заполнено ${n} из ${total}`; $("progPct").textContent=p+"%"; $("progBar").style.width=p+"%";
+document.addEventListener("input",ev=>{const i=ev.target; if(i.dataset.k){st.a[i.dataset.k]=i.value; $("hint").textContent=""; save();}});
+function filled(){return ITEMS.filter(x=>(st.a[x.k]||"").trim()).length}
+function progress(){const n=filled(),p=Math.round(n/total*100); $("progTxt").textContent=`Отвечено ${n} из ${total}`; $("progPct").textContent=p+"%"; $("progBar").style.width=p+"%";}
+function paint(){
+  let score=0; const errs=[];
+  ITEMS.forEach(x=>{
+    const r=$("r"+x.k), g=grade(x);
+    r.classList.remove("ok","bad"); r.classList.add("done",g.ok?"ok":"bad");
+    const ex=x.it.ex?` ${x.it.ex}`:"";
+    $("f"+x.k).innerHTML = g.ok
+      ? (g.accent?`<b>Верно.</b> <span class="warn">Проверь ударение: ${esc(g.accent)}</span>`:`<b>Верно.</b>`)
+      : `<b>Правильно: ${esc(right(x))}.</b>${ex}`;
+    if(g.ok) score++; else errs.push(x);
+  });
+  return {score,errs};
 }
-$("finishBtn").onclick=()=>{
-  const n=filled();
-  if(st.check){const c=marks();
-    $("doneB").textContent=`${c.ok} из ${total}`;
-    $("doneT").textContent=c.bad?`Ошибок: ${c.bad}. Они подсвечены, их можно повторить.`:"Ни одной ошибки. ¡Muy bien!";
-    $("doneP").textContent= c.ok+c.bad<total?`Не отмечено: ${total-c.ok-c.bad}. Можно вернуться и доотметить.`:"Проверка закончена. Результат сохранён на этом устройстве.";
-    $("checkModeBtn").style.display="none";
-  } else {
-  $("doneB").textContent="¡Listo!"; $("checkModeBtn").style.display="block";
-  $("doneT").textContent= n===total ? "Все задания заполнены." : `Заполнено ${n} из ${total}. Можно вернуться и дописать.`;
+function verdict(s){const r=s/total; if(r===1) return "Perfecto! Ни одной ошибки."; if(r>=.85) return "¡Muy bien! Почти идеально."; if(r>=.6) return "Bien. Ошибки разобраны ниже."; return "Vamos de nuevo. Посмотри разбор и исправь.";}
+function showResult(){
+  const {score,errs}=paint();
+  $("scoreN").innerHTML=`${score}<small>/${total}</small>`;
+  $("scoreT").textContent=verdict(score);
+  $("resImg").src= score/total>=.85?"assets/capy-success.webp":"assets/capy-study.webp";
+  $("errBox").innerHTML = errs.length
+    ? `<h2>Ошибки: ${errs.length}</h2>`+errs.map(x=>`<div class="err"><span class="n">${x.ei+1}.${x.ii+1}</span><div>${x.e.type==="text"?`${esc(x.it.w)}: `:""}<span class="was">${esc(shown(x))}</span> → <span class="is">${esc(right(x))}</span>${x.it.ex?`<p>${x.it.ex}</p>`:""}</div></div>`).join("")
+    : `<p style="margin:0">Все ответы верные. Можно переходить к следующему заданию.</p>`;
+  $("fixBtn").style.display=errs.length?"block":"none";
+  $("result").classList.add("on"); $("dock").style.display="none";
+}
+$("checkBtn").onclick=()=>{
+  const empty=ITEMS.filter(x=>!(st.a[x.k]||"").trim());
+  if(empty.length){
+    $("hint").textContent=`Осталось ответить: ${empty.length}. Первый пропуск: упр. ${empty[0].ei+1}, № ${empty[0].ii+1}`;
+    $("r"+empty[0].k).scrollIntoView({behavior:"smooth",block:"center"}); return;
   }
-  $("done").classList.add("on"); $("dock").style.display="none";
-  $("done").scrollIntoView({behavior:"smooth"});
+  st.checked=true; save(); showResult(); $("result").scrollIntoView({behavior:"smooth",block:"start"});
 };
-$("backBtn").onclick=()=>{$("done").classList.remove("on");$("dock").style.display="block";window.scrollTo({top:0,behavior:"smooth"});};
-function setCheck(on){st.check=on; document.body.classList.toggle("check",on);
-  $("finishBtn").textContent=on?"Закончить проверку":"Готово"; save();}
-$("checkModeBtn").onclick=()=>{setCheck(true); $("done").classList.remove("on"); $("dock").style.display="block"; $("checkbar").scrollIntoView({behavior:"smooth",block:"start"});};
-$("clearBtn").onclick=()=>$("confirm").classList.add("on");
+$("fixBtn").onclick=()=>{
+  const bad=ITEMS.filter(x=>!grade(x).ok);
+  bad.forEach(x=>{st.a[x.k]="";});
+  st.checked=false; save(); render(); $("result").classList.remove("on"); $("dock").style.display="block";
+  ITEMS.filter(x=>!bad.includes(x)).forEach(x=>{const r=$("r"+x.k); r.classList.add("done","ok"); $("f"+x.k).innerHTML="<b>Верно.</b>";});
+  $("r"+bad[0].k).scrollIntoView({behavior:"smooth",block:"center"});
+};
+function clearAll(){st={a:{},checked:false}; save(); render(); $("result").classList.remove("on"); $("dock").style.display="block"; window.scrollTo({top:0,behavior:"smooth"});}
+$("resetBtn").onclick=clearAll;
+$("topClear").onclick=()=>$("confirm").classList.add("on");
 $("noClear").onclick=()=>$("confirm").classList.remove("on");
-$("topClear").onclick=()=>$("confirm2").classList.add("on");
-$("noClear2").onclick=()=>$("confirm2").classList.remove("on");
-$("yesClear2").onclick=()=>{$("yesClear").click(); $("confirm2").classList.remove("on"); window.scrollTo({top:0});};
-$("yesClear").onclick=()=>{st={a:{},m:{},check:false};try{localStorage.removeItem(KEY)}catch(e){}; setCheck(false); render(); progress(); $("confirm").classList.remove("on"); $("backBtn").click();};
-render(); setCheck(!!st.check);
+$("yesClear").onclick=()=>{$("confirm").classList.remove("on"); clearAll();};
+$("trToggle").onchange=e=>document.body.classList.toggle("show-tr",e.target.checked);
+render(); progress(); if(st.checked) showResult();
 </script>
 </body>
 </html>
