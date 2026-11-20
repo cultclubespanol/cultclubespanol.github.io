@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cult Club · Tarea: los artículos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#FF2A85; --blue:#0013F6; --ink:#12122B; --muted:#6B6B85;
+  --bg:#F6F5FB; --card:#FFFFFF; --line:#E6E4F0;
+  --ok:#0BA46A; --okbg:#E6F7EF; --bad:#E5245F; --badbg:#FFE8EF;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Onest,system-ui,sans-serif;font-size:16px;line-height:1.45}
+.wrap{max-width:640px;margin:0 auto;padding:0 16px 120px}
+h1,h2,.u{font-family:Unbounded,system-ui,sans-serif}
+
+/* hero */
+.hero{background:#ECEEFE;color:var(--ink);border-radius:0 0 28px 28px;margin:0 -16px;padding:22px 20px 0;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;width:240px;height:240px;border-radius:50%;background:#FFD6E7;right:-80px;top:-100px}
+.hero:after{content:"";position:absolute;width:120px;height:120px;border-radius:50%;border:18px solid rgba(0,19,246,.07);left:-40px;bottom:30px}
+.brand{position:relative;z-index:1;color:var(--blue);font-family:Unbounded;font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.brand span{color:#fff;background:var(--pink);border-radius:6px;padding:2px 6px;margin-left:6px}
+.hero-row{position:relative;z-index:1;display:flex;align-items:flex-end;gap:8px;margin-top:14px}
+.hero-txt{flex:1;padding-bottom:22px}
+.tag{display:inline-block;font-size:12px;font-weight:600;background:#fff;color:var(--blue);border-radius:99px;padding:4px 10px;margin-bottom:10px}
+.hero h1{font-size:22px;line-height:1.2;margin:0 0 8px;font-weight:700}
+.hero p{margin:0;color:var(--muted);font-size:14px}
+.hero img{width:150px;height:auto;flex:none;margin-right:-10px;margin-bottom:-4px}
+
+/* top tools */
+.panel{background:var(--card);border-radius:20px;padding:16px;margin-top:16px;border:1px solid var(--line)}
+.name-label{font-size:13px;color:var(--muted);font-weight:500}
+.name-in{width:100%;margin-top:6px;font:inherit;border:1.5px solid var(--line);border-radius:12px;padding:11px 12px;outline:none}
+.name-in:focus{border-color:var(--blue)}
+.legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;align-items:center}
+.legend b{font-size:13px;color:var(--muted);font-weight:500;margin-right:4px}
+.lg{font-family:Unbounded;font-weight:700;font-size:13px;padding:5px 10px;border-radius:8px;background:#EEF0FF;color:var(--blue)}
+.switch{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:14px;cursor:pointer;user-select:none}
+.switch input{width:18px;height:18px;accent-color:var(--pink)}
+
+/* progress */
+.sticky{position:sticky;top:0;z-index:5;background:var(--bg);padding:12px 0 8px}
+.prog-top{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);font-weight:500;margin-bottom:6px}
+.bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--pink));transition:width .25s}
+
+/* items */
+.list{display:flex;flex-direction:column;gap:10px}
+.item{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:12px 12px 12px 14px;transition:border-color .2s, background .2s}
+.item-top{display:flex;align-items:baseline;gap:10px}
+.num{font-family:Unbounded;font-size:12px;font-weight:700;color:var(--muted);min-width:20px}
+.word{font-size:19px;font-weight:600}
+.word .art{color:var(--blue);font-weight:700}
+.tr{font-size:13px;color:var(--muted);margin-left:auto;display:none}
+body.show-tr .tr{display:block}
+.chips{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.chip{font-family:Unbounded;font-weight:700;font-size:14px;border:1.5px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:10px 0;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent}
+.chip:hover{border-color:var(--blue)}
+.chip.sel{background:var(--blue);border-color:var(--blue);color:#fff}
+.item.ok{border-color:var(--ok);background:var(--okbg)}
+.item.bad{border-color:var(--bad);background:var(--badbg)}
+.item.ok .chip.sel{background:var(--ok);border-color:var(--ok)}
+.item.bad .chip.sel{background:var(--bad);border-color:var(--bad)}
+.item.bad .chip.right{border-color:var(--ok);color:var(--ok);border-style:dashed}
+.item.checked .chip{pointer-events:none}
+.fb{display:none;margin-top:10px;font-size:14px;padding-top:10px;border-top:1px dashed rgba(0,0,0,.12)}
+.item.checked .fb{display:block}
+.fb strong{font-weight:700}
+
+/* bottom bar */
+.dock{position:fixed;left:0;right:0;bottom:0;background:rgba(246,245,251,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
+.dock .in{max-width:640px;margin:0 auto;display:flex;gap:10px}
+.btn{flex:1;font-family:Unbounded;font-weight:700;font-size:14px;border:none;border-radius:14px;padding:15px 14px;cursor:pointer;transition:transform .1s, opacity .2s}
+.btn:active{transform:scale(.98)}
+.btn.main{background:var(--pink);color:#fff}
+.btn.ghost{background:#fff;color:var(--blue);border:1.5px solid var(--blue)}
+.btn[disabled]{opacity:.45;cursor:default}
+.hint{font-size:13px;color:var(--bad);text-align:center;margin:6px 0 0;min-height:18px}
+
+/* result */
+.result{display:none;margin-top:18px;scroll-margin-top:70px;background:var(--card);border-radius:24px;border:1px solid var(--line);overflow:hidden}
+.result.on{display:block}
+.res-head{background:var(--pink);color:#fff;padding:20px;display:flex;align-items:center;gap:14px;position:relative;overflow:hidden}
+.res-head:after{content:"";position:absolute;width:160px;height:160px;border-radius:50%;background:var(--blue);right:-60px;bottom:-90px;opacity:.9}
+.res-head img{width:110px;flex:none;position:relative;z-index:1;background:#fff;border-radius:50%;padding:6px}
+.res-head .score{position:relative;z-index:1}
+.score-n{font-family:Unbounded;font-size:40px;font-weight:800;line-height:1}
+.score-n small{font-size:18px;opacity:.8}
+.score-t{font-size:15px;margin-top:6px;font-weight:500}
+.res-body{padding:18px 18px 20px}
+.res-body h2{font-size:15px;margin:0 0 10px}
+.err{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.err:last-child{border-bottom:none}
+.err .n{font-family:Unbounded;font-size:12px;color:var(--muted);min-width:22px;padding-top:2px}
+.err .was{color:var(--bad);text-decoration:line-through}
+.err .is{color:var(--ok);font-weight:700}
+.err p{margin:3px 0 0;color:var(--muted)}
+.rules{margin-top:16px;background:#EEF0FF;border-radius:16px;padding:14px 16px;font-size:14px}
+.rules b{color:var(--blue)}
+.rules ul{margin:6px 0 0;padding-left:18px}
+.res-actions{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+.copied{font-size:13px;color:var(--ok);text-align:center;min-height:18px}
+.perfect{font-size:15px;margin:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <a class="brand" href="./" style="text-decoration:none">Cult Club <span>Español</span></a>
+    <div class="hero-row">
+      <div class="hero-txt">
+        <div class="tag">Tarea: los artículos</div>
+        <h1>¿Qué artículos acompañan a las siguientes palabras?</h1>
+        <p>Какие артикли подходят к этим словам? Нажми на нужный вариант.</p>
+      </div>
+      <img src="assets/capy-study.webp" alt="Капибара делает домашку">
+    </div>
+  </header>
+
+  <div class="panel">
+    <label class="name-label" for="nm">Твоё имя (для педагога)</label>
+    <input id="nm" class="name-in" placeholder="Например, Аня" autocomplete="given-name">
+    <div class="legend"><b>Варианты:</b><span class="lg">el</span><span class="lg">la</span><span class="lg">los</span><span class="lg">las</span></div>
+    <label class="switch"><input type="checkbox" id="trToggle"> Показать перевод слов</label>
+  </div>
+
+  <div class="sticky">
+    <div class="prog-top"><span id="progTxt">Отвечено 0 из 20</span><span id="progPct">0%</span></div>
+    <div class="bar"><i id="progBar"></i></div>
+  </div>
+
+  <div class="list" id="list"></div>
+
+  <section class="result" id="result">
+    <div class="res-head">
+      <img id="resImg" src="" alt="Капибара">
+      <div class="score">
+        <div class="score-n" id="scoreN">0<small>/20</small></div>
+        <div class="score-t" id="scoreT"></div>
+      </div>
+    </div>
+    <div class="res-body">
+      <div id="errBox"></div>
+      <div class="rules">
+        <b>Шпаргалка</b>
+        <ul>
+          <li><b>el</b> · мужской род, ед. число: el teatro</li>
+          <li><b>la</b> · женский род, ед. число: la ciudad</li>
+          <li><b>los</b> · мужской род, мн. число: los museos</li>
+          <li><b>las</b> · женский род, мн. число: las playas</li>
+          <li>Слова на <b>-dad, -ción, -eza</b> почти всегда женского рода.</li>
+          <li>Ловушки: <b>el aula</b> (женский род, но el из-за ударной a-), <b>la gente</b> (одно слово, хотя «люди»).</li>
+        </ul>
+      </div>
+      <div class="res-actions">
+        <button class="btn main" id="copyBtn">Скопировать результат для педагога</button>
+        <div class="copied" id="copied"></div>
+        <button class="btn ghost" id="fixBtn">Исправить ошибки</button>
+        <button class="btn ghost" id="resetBtn">Начать заново</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="dock" id="dock">
+  <div class="in"><button class="btn main" id="checkBtn">Проверить</button></div>
+  <p class="hint" id="hint"></p>
+</div>
+
+<script>
+const ARTS=["el","la","los","las"];
+const DATA=[
+ {w:"ciudad",ok:["la"],tr:"город",ex:"Слова на -dad женского рода: la ciudad, la universidad."},
+ {w:"museos",ok:["los"],tr:"музеи",ex:"Мн. число от el museo, мужской род."},
+ {w:"historia",ok:["la"],tr:"история",ex:"Окончание -a, женский род."},
+ {w:"cine",ok:["el"],tr:"кино",ex:"На -e род нужно запоминать. Cine мужского рода: el cine."},
+ {w:"guitarra",ok:["la"],tr:"гитара",ex:"Окончание -a, женский род."},
+ {w:"literatura",ok:["la"],tr:"литература",ex:"Окончание -a, женский род."},
+ {w:"teatro",ok:["el"],tr:"театр",ex:"Окончание -o, мужской род."},
+ {w:"gramática",ok:["la"],tr:"грамматика",ex:"Окончание -a, женский род."},
+ {w:"gente",ok:["la"],tr:"люди",ex:"Ловушка: по-испански это одно слово женского рода в ед. числе. La gente es simpática (люди приятные)."},
+ {w:"playas",ok:["las"],tr:"пляжи",ex:"Мн. число от la playa, женский род."},
+ {w:"caballos",ok:["los"],tr:"лошади",ex:"Мн. число от el caballo, мужской род."},
+ {w:"música",ok:["la"],tr:"музыка",ex:"Окончание -a, женский род."},
+ {w:"pueblos",ok:["los"],tr:"деревни, посёлки",ex:"Мн. число от el pueblo, мужской род."},
+ {w:"comida",ok:["la"],tr:"еда",ex:"Окончание -a, женский род."},
+ {w:"arte",ok:["el"],tr:"искусство",ex:"В ед. числе мужской род: el arte. Во мн. числе женский: las artes."},
+ {w:"política",ok:["la"],tr:"политика",ex:"Окончание -a, женский род."},
+ {w:"naturaleza",ok:["la"],tr:"природа",ex:"Слова на -eza женского рода: la naturaleza, la belleza."},
+ {w:"estudiantes",ok:["los","las"],tr:"студенты",ex:"Подходят оба: los для смешанной группы или парней, las если это только девушки."},
+ {w:"aula",ok:["el"],tr:"учебный класс",ex:"Ловушка: слово женского рода, но начинается с ударной a-, поэтому el aula. Во мн. числе las aulas."},
+ {w:"canciones",ok:["las"],tr:"песни",ex:"Мн. число от la canción. Слова на -ción женского рода."}
+];
+const CAPY_OK="assets/capy-success.webp", CAPY_STUDY="assets/capy-study.webp";
+const ans=new Array(DATA.length).fill(null);
+let checked=false;
+const $=id=>document.getElementById(id);
+
+function render(){
+  const list=$("list"); list.innerHTML="";
+  DATA.forEach((d,i)=>{
+    const el=document.createElement("div"); el.className="item"; el.id="it"+i;
+    el.innerHTML=`<div class="item-top"><span class="num">${i+1}</span><span class="word"><span class="art" id="a${i}">___</span> ${d.w}</span><span class="tr">${d.tr}</span></div>
+      <div class="chips">${ARTS.map(a=>`<button class="chip" data-i="${i}" data-a="${a}">${a}</button>`).join("")}</div>
+      <div class="fb" id="fb${i}"></div>`;
+    list.appendChild(el);
+  });
+  list.addEventListener("click",e=>{
+    const b=e.target.closest(".chip"); if(!b) return;
+    const i=+b.dataset.i; if($("it"+i).classList.contains("checked")) return;
+    ans[i]=b.dataset.a; paintItem(i); progress(); $("hint").textContent="";
+  });
+}
+function paintItem(i){
+  document.querySelectorAll(`#it${i} .chip`).forEach(c=>c.classList.toggle("sel",c.dataset.a===ans[i]));
+  $("a"+i).textContent=ans[i]||"___";
+}
+function progress(){
+  const n=ans.filter(Boolean).length;
+  $("progTxt").textContent=`Отвечено ${n} из ${DATA.length}`;
+  const p=Math.round(n/DATA.length*100);
+  $("progPct").textContent=p+"%"; $("progBar").style.width=p+"%";
+}
+function check(){
+  const empty=ans.map((a,i)=>a?null:i+1).filter(x=>x);
+  if(empty.length){
+    $("hint").textContent=`Осталось ответить: ${empty.join(", ")}`;
+    const first=$("it"+(empty[0]-1)); first.scrollIntoView({behavior:"smooth",block:"center"});
+    return;
+  }
+  checked=true; let score=0; const errs=[];
+  DATA.forEach((d,i)=>{
+    const it=$("it"+i), ok=d.ok.includes(ans[i]);
+    it.classList.remove("ok","bad"); it.classList.add("checked",ok?"ok":"bad");
+    it.querySelectorAll(".chip").forEach(c=>c.classList.toggle("right",!ok&&d.ok.includes(c.dataset.a)));
+    $("fb"+i).innerHTML= ok ? `<strong>Верно.</strong> ${d.ok.length>1?d.ex:""}` : `<strong>Правильно: ${d.ok.join(" / ")} ${d.w}.</strong> ${d.ex}`;
+    if(ok) score++; else errs.push(i);
+  });
+  showResult(score,errs);
+}
+function verdict(s){
+  if(s===20) return "Perfecto! Ни одной ошибки.";
+  if(s>=17) return "¡Muy bien! Почти идеально, посмотри разбор ниже.";
+  if(s>=12) return "Bien. Основа есть, ошибки разобраны ниже.";
+  return "Vamos de nuevo. Посмотри шпаргалку и попробуй исправить.";
+}
+function showResult(score,errs){
+  $("scoreN").innerHTML=`${score}<small>/${DATA.length}</small>`;
+  $("scoreT").textContent=verdict(score);
+  $("resImg").src= score>=17?CAPY_OK:CAPY_STUDY;
+  $("errBox").innerHTML = errs.length
+    ? `<h2>Ошибки: ${errs.length}</h2>`+errs.map(i=>`<div class="err"><span class="n">${i+1}</span><div><span class="was">${ans[i]} ${DATA[i].w}</span> → <span class="is">${DATA[i].ok.join(" / ")} ${DATA[i].w}</span><p>${DATA[i].ex}</p></div></div>`).join("")
+    : `<p class="perfect">Все 20 артиклей на месте. Можно переходить к следующему заданию.</p>`;
+  $("fixBtn").style.display=errs.length?"block":"none";
+  $("result").classList.add("on"); $("dock").style.display="none";
+  $("result").scrollIntoView({behavior:"smooth",block:"start"});
+  window._last={score,errs};
+}
+function fix(){
+  const {errs}=window._last;
+  errs.forEach(i=>{ans[i]=null; const it=$("it"+i); it.classList.remove("checked","bad","ok"); it.querySelectorAll(".chip").forEach(c=>c.classList.remove("right")); paintItem(i);});
+  $("result").classList.remove("on"); $("dock").style.display="block"; progress();
+  $("it"+errs[0]).scrollIntoView({behavior:"smooth",block:"center"});
+}
+function reset(){
+  ans.fill(null);
+  DATA.forEach((d,i)=>{const it=$("it"+i); it.className="item"; it.querySelectorAll(".chip").forEach(c=>c.classList.remove("right")); paintItem(i);});
+  $("result").classList.remove("on"); $("dock").style.display="block"; progress();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+async function copyRes(){
+  const {score,errs}=window._last;
+  const name=$("nm").value.trim()||"[имя]";
+  let t=`Tarea: los artículos\n${name}: ${score}/${DATA.length}\n`;
+  t+= errs.length ? "Ошибки:\n"+errs.map(i=>`${i+1}. ${ans[i]} ${DATA[i].w} → ${DATA[i].ok.join("/")} ${DATA[i].w}`).join("\n") : "Без ошибок";
+  try{ await navigator.clipboard.writeText(t); $("copied").textContent="Скопировано. Вставь в чат группы."; }
+  catch(e){ $("copied").textContent="Не получилось скопировать автоматически. Сделай скриншот результата."; }
+}
+$("checkBtn").onclick=check; $("fixBtn").onclick=fix; $("resetBtn").onclick=reset; $("copyBtn").onclick=copyRes;
+$("trToggle").onchange=e=>document.body.classList.toggle("show-tr",e.target.checked);
+render(); progress();
+</script>
+</body>
+</html>
