@@ -67,7 +67,18 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:Onest,system-ui,
 .confirm{display:none;background:#FFF0F6;border:1px solid #FFC2DB;border-radius:14px;padding:12px;font-size:14px}
 .confirm.on{display:block}
 .confirm .acts{flex-direction:row;margin-top:10px}
-.empty{color:var(--pink);font-weight:600}
+.mk{display:none;gap:6px;margin-top:8px}
+body.check .mk{display:flex}
+.mk button{flex:1;font:600 14px Onest,sans-serif;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:8px 0;cursor:pointer}
+.mk .y.on{background:var(--ok);border-color:var(--ok);color:#fff}
+.mk .n.on{background:#E5245F;border-color:#E5245F;color:#fff}
+.row.m-ok{background:#E6F7EF;border-radius:12px;padding-left:8px;padding-right:8px}
+.row.m-bad{background:#FFE8EF;border-radius:12px;padding-left:8px;padding-right:8px}
+body.check .row.inline{flex-wrap:wrap}
+body.check .row.inline .mk{width:100%}
+.checkbar{display:none;background:var(--blue);color:#fff;border-radius:16px;padding:12px 14px;margin-top:14px;font-size:14px}
+body.check .checkbar{display:block}
+.score{font-family:Unbounded;font-weight:800;font-size:28px;margin:4px 0 0}
 </style>
 </head>
 <body>
@@ -78,16 +89,14 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:Onest,system-ui,
       <div class="hero-txt">
         <div class="tag">Libro A1 · стр. 9, упр. 1–5</div>
         <h1>Sustantivos y artículos</h1>
-        <p>Существительные и артикли. Заполни всё, а проверим вместе на уроке.</p>
+        <p>Существительные и артикли. Заполни дома, а проверим вместе на уроке.</p>
       </div>
       <img src="assets/capy-study.webp" alt="Капибара делает домашку">
     </div>
   </header>
 
   <div class="panel">
-    <label class="lbl" for="nm">Твоё имя (для педагога)</label>
-    <input id="nm" class="in" placeholder="Например, Аня" autocomplete="given-name">
-    <p class="note">Ответы сохраняются на этом устройстве автоматически. Можно закрыть страницу и вернуться позже.</p>
+    <p class="note" style="margin:0">Ответы сохраняются на этом устройстве автоматически. Можно закрыть страницу и вернуться позже.</p>
   </div>
 
   <div class="sticky">
@@ -95,18 +104,18 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:Onest,system-ui,
     <div class="bar"><i id="progBar"></i></div>
   </div>
 
+  <div class="checkbar" id="checkbar"><b>Режим проверки.</b> Педагог называет правильные ответы, ты отмечаешь у себя ✓ или ✗. Неверный ответ можно исправить прямо в поле.</div>
   <div id="exs"></div>
 
   <section class="done" id="done">
     <div class="done-h">
       <img src="assets/capy-success.webp" alt="Капибара радуется">
-      <div><b>¡Listo!</b><span id="doneT"></span></div>
+      <div><b id="doneB">¡Listo!</b><span id="doneT"></span></div>
     </div>
     <div class="done-b">
-      <p>Отправь ответы педагогу в чат группы. Проверим их вместе на уроке.</p>
+      <p id="doneP">Ответы сохранены на этом устройстве. На уроке открой эту же страницу и нажми «Проверяем на уроке».</p>
       <div class="acts">
-        <button class="btn main" id="copyBtn">Скопировать ответы</button>
-        <div class="msg" id="msg"></div>
+        <button class="btn main" id="checkModeBtn">Проверяем на уроке</button>
         <button class="btn ghost" id="backBtn">Вернуться к заданиям</button>
         <button class="btn ghost" id="clearBtn">Очистить все ответы</button>
         <div class="confirm" id="confirm">Стереть все ответы на этом устройстве? Вернуть их будет нельзя.
@@ -141,8 +150,9 @@ const EXERCISES=[
 /* ===== конец блока ===== */
 
 const KEY="cc_"+PAGE_ID;
-let st={name:"",a:{}};
-try{const s=localStorage.getItem(KEY); if(s) st=JSON.parse(s);}catch(e){}
+let st={a:{},m:{},check:false};
+try{const s=localStorage.getItem(KEY); if(s) st=Object.assign(st,JSON.parse(s));}catch(e){}
+st.m=st.m||{};
 const $=id=>document.getElementById(id);
 const total=EXERCISES.reduce((n,e)=>n+e.items.length,0);
 let saveT;
@@ -158,12 +168,18 @@ function render(){
    <section class="ex"><div class="ex-h"><span class="ex-n">${ei+1}</span><span class="ex-t">${e.t}</span></div>
    ${e.items.map((w,ii)=>{
      const v=st.a[k(ei,ii)]||"";
-     if(e.type==="choice") return `<div class="row${e.options.length<=2?" inline":""}"><div class="w">${e.slot?`<span class="slot" id="s${k(ei,ii)}">${esc(v)||"&nbsp;"}</span>`:""}${w}</div>
-       <div class="chips">${e.options.map(o=>`<button class="chip${v===o?" sel":""}" data-k="${k(ei,ii)}" data-v="${o}">${o}</button>`).join("")}</div></div>`;
-     return `<div class="row"><div class="w">${w}</div><input class="in" data-k="${k(ei,ii)}" value="${esc(v)}" placeholder="${e.ph}" autocapitalize="off" autocomplete="off" spellcheck="false"></div>`;
+     const mk=`<div class="mk"><button class="y${st.m[k(ei,ii)]==="ok"?" on":""}" data-m="ok" data-k="${k(ei,ii)}">✓ верно</button><button class="n${st.m[k(ei,ii)]==="bad"?" on":""}" data-m="bad" data-k="${k(ei,ii)}">✗ ошибка</button></div>`;
+     const rc=st.m[k(ei,ii)]==="ok"?" m-ok":st.m[k(ei,ii)]==="bad"?" m-bad":"";
+     if(e.type==="choice") return `<div class="row${rc}${e.options.length<=2?" inline":""}"><div class="w">${e.slot?`<span class="slot" id="s${k(ei,ii)}">${esc(v)||"&nbsp;"}</span>`:""}${w}</div>
+       <div class="chips">${e.options.map(o=>`<button class="chip${v===o?" sel":""}" data-k="${k(ei,ii)}" data-v="${o}">${o}</button>`).join("")}</div>${mk}</div>`;
+     return `<div class="row${rc}"><div class="w">${w}</div><input class="in" data-k="${k(ei,ii)}" value="${esc(v)}" placeholder="${e.ph}" autocapitalize="off" autocomplete="off" spellcheck="false">${mk}</div>`;
    }).join("")}</section>`).join("");
 }
 document.addEventListener("click",ev=>{
+  const m=ev.target.closest(".mk button");
+  if(m){const key=m.dataset.k; st.m[key]= st.m[key]===m.dataset.m?"":m.dataset.m;
+    const row=m.closest(".row"); row.classList.toggle("m-ok",st.m[key]==="ok"); row.classList.toggle("m-bad",st.m[key]==="bad");
+    m.parentNode.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x.dataset.m===st.m[key])); save(); return;}
   const b=ev.target.closest(".chip"); if(!b) return;
   const key=b.dataset.k, v=b.dataset.v;
   st.a[key]= st.a[key]===v ? "" : v;
@@ -172,41 +188,39 @@ document.addEventListener("click",ev=>{
   save();
 });
 document.addEventListener("input",ev=>{
-  const i=ev.target; if(i.id==="nm"){st.name=i.value;save();return;}
+  const i=ev.target;
   if(i.dataset.k){st.a[i.dataset.k]=i.value;save();}
 });
 function filled(){return Object.values(st.a).filter(v=>v&&v.trim()).length}
+function marks(){const v=Object.values(st.m);return{ok:v.filter(x=>x==="ok").length,bad:v.filter(x=>x==="bad").length}}
 function progress(){
+  if(st.check){const c=marks(), n=c.ok+c.bad, p=Math.round(n/total*100);
+    $("progTxt").textContent=`Проверено ${n} из ${total} · ✓ ${c.ok} · ✗ ${c.bad}`; $("progPct").textContent=p+"%"; $("progBar").style.width=p+"%"; return;}
   const n=filled(), p=Math.round(n/total*100);
   $("progTxt").textContent=`Заполнено ${n} из ${total}`; $("progPct").textContent=p+"%"; $("progBar").style.width=p+"%";
 }
-function text(){
-  let t=`${PAGE_TITLE}\n${(st.name||"").trim()||"[имя]"}\n`;
-  EXERCISES.forEach((e,ei)=>{
-    t+=`\n${ei+1}) ${e.t}\n`;
-    e.items.forEach((w,ii)=>{
-      const v=(st.a[k(ei,ii)]||"").trim()||"(пусто)";
-      t+= e.slot ? `${v} ${w}\n` : `${w}: ${v}\n`;
-    });
-  });
-  return t;
-}
 $("finishBtn").onclick=()=>{
   const n=filled();
+  if(st.check){const c=marks();
+    $("doneB").textContent=`${c.ok} из ${total}`;
+    $("doneT").textContent=c.bad?`Ошибок: ${c.bad}. Они подсвечены, их можно повторить.`:"Ни одной ошибки. ¡Muy bien!";
+    $("doneP").textContent= c.ok+c.bad<total?`Не отмечено: ${total-c.ok-c.bad}. Можно вернуться и доотметить.`:"Проверка закончена. Результат сохранён на этом устройстве.";
+    $("checkModeBtn").style.display="none";
+  } else {
+  $("doneB").textContent="¡Listo!"; $("checkModeBtn").style.display="block";
   $("doneT").textContent= n===total ? "Все задания заполнены." : `Заполнено ${n} из ${total}. Можно вернуться и дописать.`;
+  }
   $("done").classList.add("on"); $("dock").style.display="none";
   $("done").scrollIntoView({behavior:"smooth"});
 };
 $("backBtn").onclick=()=>{$("done").classList.remove("on");$("dock").style.display="block";window.scrollTo({top:0,behavior:"smooth"});};
-$("copyBtn").onclick=async()=>{
-  try{await navigator.clipboard.writeText(text()); $("msg").textContent="Скопировано. Вставь в чат группы.";}
-  catch(e){$("msg").textContent="Не получилось скопировать. Сделай скриншот страницы.";}
-};
+function setCheck(on){st.check=on; document.body.classList.toggle("check",on);
+  $("finishBtn").textContent=on?"Закончить проверку":"Готово"; save();}
+$("checkModeBtn").onclick=()=>{setCheck(true); $("done").classList.remove("on"); $("dock").style.display="block"; $("checkbar").scrollIntoView({behavior:"smooth",block:"start"});};
 $("clearBtn").onclick=()=>$("confirm").classList.add("on");
 $("noClear").onclick=()=>$("confirm").classList.remove("on");
-$("yesClear").onclick=()=>{st={name:"",a:{}};try{localStorage.removeItem(KEY)}catch(e){}; $("nm").value=""; render(); progress(); $("confirm").classList.remove("on"); $("backBtn").click();};
-$("nm").value=st.name||"";
-render(); progress();
+$("yesClear").onclick=()=>{st={a:{},m:{},check:false};try{localStorage.removeItem(KEY)}catch(e){}; setCheck(false); render(); progress(); $("confirm").classList.remove("on"); $("backBtn").click();};
+render(); setCheck(!!st.check);
 </script>
 </body>
 </html>
