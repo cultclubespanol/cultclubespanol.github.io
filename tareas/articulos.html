@@ -8,282 +8,219 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
-:root{
-  --pink:#FF2A85; --blue:#0013F6; --ink:#12122B; --muted:#6B6B85;
-  --bg:#F6F5FB; --card:#FFFFFF; --line:#E6E4F0;
-  --ok:#0BA46A; --okbg:#E6F7EF; --bad:#E5245F; --badbg:#FFE8EF;
-}
+:root{--pink:#FF2A85;--blue:#0013F6;--ink:#12122B;--muted:#6B6B85;--bg:#F6F5FB;--card:#fff;--line:#E6E4F0;--ok:#0BA46A}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:Onest,system-ui,sans-serif;font-size:16px;line-height:1.45}
 .wrap{max-width:640px;margin:0 auto;padding:0 16px 120px}
-h1,h2,.u{font-family:Unbounded,system-ui,sans-serif}
-
-/* hero */
-.hero{background:#ECEEFE;color:var(--ink);border-radius:0 0 28px 28px;margin:0 -16px;padding:22px 20px 0;position:relative;overflow:hidden}
+.hero{background:#ECEEFE;border-radius:0 0 28px 28px;margin:0 -16px;padding:22px 20px 0;position:relative;overflow:hidden}
 .hero:before{content:"";position:absolute;width:240px;height:240px;border-radius:50%;background:#FFD6E7;right:-80px;top:-100px}
-.hero:after{content:"";position:absolute;width:120px;height:120px;border-radius:50%;border:18px solid rgba(0,19,246,.07);left:-40px;bottom:30px}
-.brand{position:relative;z-index:1;color:var(--blue);font-family:Unbounded;font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.brand{position:relative;z-index:1;font-family:Unbounded;font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);text-decoration:none}
 .brand span{color:#fff;background:var(--pink);border-radius:6px;padding:2px 6px;margin-left:6px}
 .hero-row{position:relative;z-index:1;display:flex;align-items:flex-end;gap:8px;margin-top:14px}
 .hero-txt{flex:1;padding-bottom:22px}
 .tag{display:inline-block;font-size:12px;font-weight:600;background:#fff;color:var(--blue);border-radius:99px;padding:4px 10px;margin-bottom:10px}
-.hero h1{font-size:22px;line-height:1.2;margin:0 0 8px;font-weight:700}
+.hero h1{font-family:Unbounded;font-size:22px;line-height:1.2;margin:0 0 8px;font-weight:700}
 .hero p{margin:0;color:var(--muted);font-size:14px}
-.hero img{width:150px;height:auto;flex:none;margin-right:-10px;margin-bottom:-4px}
-
-/* top tools */
+.hero img{width:140px;flex:none;margin-right:-10px;margin-bottom:-4px}
 .panel{background:var(--card);border-radius:20px;padding:16px;margin-top:16px;border:1px solid var(--line)}
-.name-label{font-size:13px;color:var(--muted);font-weight:500}
-.name-in{width:100%;margin-top:6px;font:inherit;border:1.5px solid var(--line);border-radius:12px;padding:11px 12px;outline:none}
-.name-in:focus{border-color:var(--blue)}
-.legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;align-items:center}
-.legend b{font-size:13px;color:var(--muted);font-weight:500;margin-right:4px}
-.lg{font-family:Unbounded;font-weight:700;font-size:13px;padding:5px 10px;border-radius:8px;background:#EEF0FF;color:var(--blue)}
-.switch{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:14px;cursor:pointer;user-select:none}
-.switch input{width:18px;height:18px;accent-color:var(--pink)}
-
-/* progress */
+.lbl{font-size:13px;color:var(--muted);font-weight:500}
+.in{width:100%;margin-top:6px;font:inherit;border:1.5px solid var(--line);border-radius:12px;padding:11px 12px;outline:none;background:#fff}
+.in:focus{border-color:var(--blue)}
+.note{font-size:13px;color:var(--muted);margin:10px 0 0}
 .sticky{position:sticky;top:0;z-index:5;background:var(--bg);padding:12px 0 8px}
 .prog-top{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);font-weight:500;margin-bottom:6px}
 .bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden}
 .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--pink));transition:width .25s}
-
-/* items */
-.list{display:flex;flex-direction:column;gap:10px}
-.item{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:12px 12px 12px 14px;transition:border-color .2s, background .2s}
-.item-top{display:flex;align-items:baseline;gap:10px}
-.num{font-family:Unbounded;font-size:12px;font-weight:700;color:var(--muted);min-width:20px}
-.word{font-size:19px;font-weight:600}
-.word .art{color:var(--blue);font-weight:700}
-.tr{font-size:13px;color:var(--muted);margin-left:auto;display:none}
-body.show-tr .tr{display:block}
-.chips{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
-.chip{font-family:Unbounded;font-weight:700;font-size:14px;border:1.5px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:10px 0;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent}
-.chip:hover{border-color:var(--blue)}
+.ex{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin-top:14px}
+.ex-h{display:flex;gap:10px;align-items:flex-start;margin-bottom:12px}
+.ex-n{font-family:Unbounded;font-weight:800;font-size:13px;color:#fff;background:var(--blue);border-radius:10px;min-width:30px;height:30px;display:grid;place-items:center;flex:none}
+.ex-t{font-weight:600;font-size:16px;padding-top:4px}
+.row{padding:10px 0;border-top:1px dashed var(--line)}
+.row:first-of-type{border-top:none}
+.w{font-size:17px;font-weight:600}
+.w .slot{color:var(--blue);font-weight:700;display:inline-block;min-width:34px;border-bottom:2px solid var(--blue);text-align:center;margin-right:6px}
+.chips{display:flex;gap:8px;margin-top:8px}
+.chip{flex:1;font-family:Unbounded;font-weight:700;font-size:13px;border:1.5px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:10px 0;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .chip.sel{background:var(--blue);border-color:var(--blue);color:#fff}
-.item.ok{border-color:var(--ok);background:var(--okbg)}
-.item.bad{border-color:var(--bad);background:var(--badbg)}
-.item.ok .chip.sel{background:var(--ok);border-color:var(--ok)}
-.item.bad .chip.sel{background:var(--bad);border-color:var(--bad)}
-.item.bad .chip.right{border-color:var(--ok);color:var(--ok);border-style:dashed}
-.item.checked .chip{pointer-events:none}
-.fb{display:none;margin-top:10px;font-size:14px;padding-top:10px;border-top:1px dashed rgba(0,0,0,.12)}
-.item.checked .fb{display:block}
-.fb strong{font-weight:700}
-
-/* bottom bar */
+.row .in{margin-top:6px}
+.row.inline{display:flex;align-items:center;gap:10px}
+.row.inline .w{flex:1}
+.row.inline .chips{margin-top:0;flex:none;gap:6px}
+.row.inline .chip{padding:9px 8px;font-size:12px;min-width:46px}
 .dock{position:fixed;left:0;right:0;bottom:0;background:rgba(246,245,251,.94);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
-.dock .in{max-width:640px;margin:0 auto;display:flex;gap:10px}
-.btn{flex:1;font-family:Unbounded;font-weight:700;font-size:14px;border:none;border-radius:14px;padding:15px 14px;cursor:pointer;transition:transform .1s, opacity .2s}
-.btn:active{transform:scale(.98)}
+.dock .inr{max-width:640px;margin:0 auto;display:flex;gap:10px}
+.btn{flex:1;font-family:Unbounded;font-weight:700;font-size:14px;border:none;border-radius:14px;padding:15px 14px;cursor:pointer}
 .btn.main{background:var(--pink);color:#fff}
 .btn.ghost{background:#fff;color:var(--blue);border:1.5px solid var(--blue)}
-.btn[disabled]{opacity:.45;cursor:default}
-.hint{font-size:13px;color:var(--bad);text-align:center;margin:6px 0 0;min-height:18px}
-
-/* result */
-.result{display:none;margin-top:18px;scroll-margin-top:70px;background:var(--card);border-radius:24px;border:1px solid var(--line);overflow:hidden}
-.result.on{display:block}
-.res-head{background:var(--pink);color:#fff;padding:20px;display:flex;align-items:center;gap:14px;position:relative;overflow:hidden}
-.res-head:after{content:"";position:absolute;width:160px;height:160px;border-radius:50%;background:var(--blue);right:-60px;bottom:-90px;opacity:.9}
-.res-head img{width:110px;flex:none;position:relative;z-index:1;background:#fff;border-radius:50%;padding:6px}
-.res-head .score{position:relative;z-index:1}
-.score-n{font-family:Unbounded;font-size:40px;font-weight:800;line-height:1}
-.score-n small{font-size:18px;opacity:.8}
-.score-t{font-size:15px;margin-top:6px;font-weight:500}
-.res-body{padding:18px 18px 20px}
-.res-body h2{font-size:15px;margin:0 0 10px}
-.err{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
-.err:last-child{border-bottom:none}
-.err .n{font-family:Unbounded;font-size:12px;color:var(--muted);min-width:22px;padding-top:2px}
-.err .was{color:var(--bad);text-decoration:line-through}
-.err .is{color:var(--ok);font-weight:700}
-.err p{margin:3px 0 0;color:var(--muted)}
-.rules{margin-top:16px;background:#EEF0FF;border-radius:16px;padding:14px 16px;font-size:14px}
-.rules b{color:var(--blue)}
-.rules ul{margin:6px 0 0;padding-left:18px}
-.res-actions{display:flex;flex-direction:column;gap:10px;margin-top:18px}
-.copied{font-size:13px;color:var(--ok);text-align:center;min-height:18px}
-.perfect{font-size:15px;margin:0}
+.saved{font-size:12px;color:var(--ok);text-align:center;margin:6px 0 0;min-height:16px}
+.done{display:none;margin-top:18px;background:var(--card);border-radius:24px;border:1px solid var(--line);overflow:hidden;scroll-margin-top:70px}
+.done.on{display:block}
+.done-h{background:var(--pink);color:#fff;padding:18px 20px;display:flex;gap:14px;align-items:center;position:relative;overflow:hidden}
+.done-h:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;background:var(--blue);right:-60px;bottom:-90px}
+.done-h img{width:96px;background:#fff;border-radius:50%;padding:6px;position:relative;z-index:1}
+.done-h div{position:relative;z-index:1}
+.done-h b{font-family:Unbounded;font-size:20px;display:block}
+.done-b{padding:18px}
+.done-b p{margin:0 0 12px}
+.acts{display:flex;flex-direction:column;gap:10px}
+.msg{font-size:13px;color:var(--ok);text-align:center;min-height:18px}
+.confirm{display:none;background:#FFF0F6;border:1px solid #FFC2DB;border-radius:14px;padding:12px;font-size:14px}
+.confirm.on{display:block}
+.confirm .acts{flex-direction:row;margin-top:10px}
+.mk{display:none;gap:6px;margin-top:8px}
+body.check .mk{display:flex}
+.mk button{flex:1;font:600 14px Onest,sans-serif;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:8px 0;cursor:pointer}
+.mk .y.on{background:var(--ok);border-color:var(--ok);color:#fff}
+.mk .n.on{background:#E5245F;border-color:#E5245F;color:#fff}
+.row.m-ok{background:#E6F7EF;border-radius:12px;padding-left:8px;padding-right:8px}
+.row.m-bad{background:#FFE8EF;border-radius:12px;padding-left:8px;padding-right:8px}
+body.check .row.inline{flex-wrap:wrap}
+body.check .row.inline .mk{width:100%}
+.checkbar{display:none;background:var(--blue);color:#fff;border-radius:16px;padding:12px 14px;margin-top:14px;font-size:14px}
+body.check .checkbar{display:block}
+.reset{margin-top:10px;background:none;border:none;color:var(--pink);font:600 14px Onest,sans-serif;padding:0;cursor:pointer;text-decoration:underline}
+.score{font-family:Unbounded;font-weight:800;font-size:28px;margin:4px 0 0}
 </style>
 </head>
 <body>
 <div class="wrap">
-
   <header class="hero">
-    <a class="brand" href="./" style="text-decoration:none">Cult Club <span>Español</span></a>
+    <a class="brand" href="./">Cult Club <span>Español</span></a>
     <div class="hero-row">
       <div class="hero-txt">
         <div class="tag">Tarea: los artículos</div>
-        <h1>¿Qué artículos acompañan a las siguientes palabras?</h1>
-        <p>Какие артикли подходят к этим словам? Нажми на нужный вариант.</p>
+        <h1>El, la, los, las</h1>
+        <p>Выбери артикль для каждого слова. Заполни дома, а проверим вместе на уроке.</p>
       </div>
       <img src="assets/capy-study.webp" alt="Капибара делает домашку">
     </div>
   </header>
 
   <div class="panel">
-    <label class="name-label" for="nm">Твоё имя (для педагога)</label>
-    <input id="nm" class="name-in" placeholder="Например, Аня" autocomplete="given-name">
-    <div class="legend"><b>Варианты:</b><span class="lg">el</span><span class="lg">la</span><span class="lg">los</span><span class="lg">las</span></div>
-    <label class="switch"><input type="checkbox" id="trToggle"> Показать перевод слов</label>
+    <p class="note" style="margin:0">Ответы сохраняются на этом устройстве автоматически. Можно закрыть страницу и вернуться позже.</p>
+    <button class="reset" id="topClear">Начать заново</button>
+    <div class="confirm" id="confirm2" style="margin-top:10px">Стереть все ответы и отметки на этом устройстве? Вернуть их будет нельзя.
+      <div class="acts"><button class="btn main" id="yesClear2">Стереть</button><button class="btn ghost" id="noClear2">Отмена</button></div>
+    </div>
   </div>
 
   <div class="sticky">
-    <div class="prog-top"><span id="progTxt">Отвечено 0 из 20</span><span id="progPct">0%</span></div>
+    <div class="prog-top"><span id="progTxt"></span><span id="progPct"></span></div>
     <div class="bar"><i id="progBar"></i></div>
   </div>
 
-  <div class="list" id="list"></div>
+  <div class="checkbar" id="checkbar"><b>Режим проверки.</b> Педагог называет правильные ответы, ты отмечаешь у себя ✓ или ✗. Неверный ответ можно исправить прямо в поле.</div>
+  <div id="exs"></div>
 
-  <section class="result" id="result">
-    <div class="res-head">
-      <img id="resImg" src="" alt="Капибара">
-      <div class="score">
-        <div class="score-n" id="scoreN">0<small>/20</small></div>
-        <div class="score-t" id="scoreT"></div>
-      </div>
+  <section class="done" id="done">
+    <div class="done-h">
+      <img src="assets/capy-success.webp" alt="Капибара радуется">
+      <div><b id="doneB">¡Listo!</b><span id="doneT"></span></div>
     </div>
-    <div class="res-body">
-      <div id="errBox"></div>
-      <div class="rules">
-        <b>Шпаргалка</b>
-        <ul>
-          <li><b>el</b> · мужской род, ед. число: el teatro</li>
-          <li><b>la</b> · женский род, ед. число: la ciudad</li>
-          <li><b>los</b> · мужской род, мн. число: los museos</li>
-          <li><b>las</b> · женский род, мн. число: las playas</li>
-          <li>Слова на <b>-dad, -ción, -eza</b> почти всегда женского рода.</li>
-          <li>Ловушки: <b>el cine</b> и <b>el arte</b> (на -e, мужской род), <b>la gente</b> (одно слово, хотя «люди»).</li>
-        </ul>
-      </div>
-      <div class="res-actions">
-        <button class="btn main" id="copyBtn">Скопировать результат для педагога</button>
-        <div class="copied" id="copied"></div>
-        <button class="btn ghost" id="fixBtn">Исправить ошибки</button>
-        <button class="btn ghost" id="resetBtn">Начать заново</button>
+    <div class="done-b">
+      <p id="doneP">Ответы сохранены на этом устройстве. На уроке открой эту же страницу и нажми «Проверяем на уроке».</p>
+      <div class="acts">
+        <button class="btn main" id="checkModeBtn">Проверяем на уроке</button>
+        <button class="btn ghost" id="backBtn">Вернуться к заданиям</button>
+        <button class="btn ghost" id="clearBtn">Очистить все ответы</button>
+        <div class="confirm" id="confirm">Стереть все ответы на этом устройстве? Вернуть их будет нельзя.
+          <div class="acts"><button class="btn main" id="yesClear">Стереть</button><button class="btn ghost" id="noClear">Отмена</button></div>
+        </div>
       </div>
     </div>
   </section>
 </div>
 
 <div class="dock" id="dock">
-  <div class="in"><button class="btn main" id="checkBtn">Проверить</button></div>
-  <p class="hint" id="hint"></p>
+  <div class="inr"><button class="btn main" id="finishBtn">Готово</button></div>
+  <p class="saved" id="saved"></p>
 </div>
 
 <script>
-const ARTS=["el","la","los","las"];
-const DATA=[
- {w:"ciudad",ok:["la"],tr:"город",ex:"Слова на -dad женского рода: la ciudad, la universidad."},
- {w:"museos",ok:["los"],tr:"музеи",ex:"Мн. число от el museo, мужской род."},
- {w:"historia",ok:["la"],tr:"история",ex:"Окончание -a, женский род."},
- {w:"cine",ok:["el"],tr:"кино",ex:"На -e род нужно запоминать. Cine мужского рода: el cine."},
- {w:"guitarra",ok:["la"],tr:"гитара",ex:"Окончание -a, женский род."},
- {w:"literatura",ok:["la"],tr:"литература",ex:"Окончание -a, женский род."},
- {w:"teatro",ok:["el"],tr:"театр",ex:"Окончание -o, мужской род."},
- {w:"gramática",ok:["la"],tr:"грамматика",ex:"Окончание -a, женский род."},
- {w:"gente",ok:["la"],tr:"люди",ex:"Ловушка: по-испански это одно слово женского рода в ед. числе. La gente es simpática (люди приятные)."},
- {w:"playas",ok:["las"],tr:"пляжи",ex:"Мн. число от la playa, женский род."},
- {w:"caballos",ok:["los"],tr:"лошади",ex:"Мн. число от el caballo, мужской род."},
- {w:"música",ok:["la"],tr:"музыка",ex:"Окончание -a, женский род."},
- {w:"pueblos",ok:["los"],tr:"деревни, посёлки",ex:"Мн. число от el pueblo, мужской род."},
- {w:"comida",ok:["la"],tr:"еда",ex:"Окончание -a, женский род."},
- {w:"arte",ok:["el"],tr:"искусство",ex:"В ед. числе мужской род: el arte. Во мн. числе женский: las artes."},
- {w:"política",ok:["la"],tr:"политика",ex:"Окончание -a, женский род."},
- {w:"naturaleza",ok:["la"],tr:"природа",ex:"Слова на -eza женского рода: la naturaleza, la belleza."},
- {w:"estudiantes",ok:["los","las"],tr:"студенты",ex:"Подходят оба: los для смешанной группы или парней, las если это только девушки."},
- {w:"libro",ok:["el"],tr:"книга",ex:"Окончание -o, мужской род: el libro."},
- {w:"canciones",ok:["las"],tr:"песни",ex:"Мн. число от la canción. Слова на -ción женского рода."}
+/* ===== Содержание задания. Для новой страницы меняется только этот блок ===== */
+const PAGE_ID="articulos";
+const PAGE_TITLE="Tarea: los artículos";
+const EXERCISES=[
+ {t:"¿Qué artículos acompañan a las siguientes palabras? Какие артикли подходят к этим словам?", type:"choice", options:["el","la","los","las"], slot:true,
+  items:["ciudad","museos","historia","cine","guitarra","literatura","teatro","gramática","gente","playas","caballos","música","pueblos","comida","arte","política","naturaleza","estudiantes","libro","canciones"]}
 ];
-const CAPY_OK="assets/capy-success.webp", CAPY_STUDY="assets/capy-study.webp";
-const ans=new Array(DATA.length).fill(null);
-let checked=false;
-const $=id=>document.getElementById(id);
+/* ===== конец блока ===== */
 
+const KEY="cc_"+PAGE_ID;
+let st={a:{},m:{},check:false};
+try{const s=localStorage.getItem(KEY); if(s) st=Object.assign(st,JSON.parse(s));}catch(e){}
+st.m=st.m||{};
+const $=id=>document.getElementById(id);
+const total=EXERCISES.reduce((n,e)=>n+e.items.length,0);
+let saveT;
+function save(){
+  try{localStorage.setItem(KEY,JSON.stringify(st)); $("saved").textContent="Сохранено";}catch(e){$("saved").textContent="";}
+  clearTimeout(saveT); saveT=setTimeout(()=>$("saved").textContent="",1500);
+  progress();
+}
+function k(ei,ii){return ei+"_"+ii}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
 function render(){
-  const list=$("list"); list.innerHTML="";
-  DATA.forEach((d,i)=>{
-    const el=document.createElement("div"); el.className="item"; el.id="it"+i;
-    el.innerHTML=`<div class="item-top"><span class="num">${i+1}</span><span class="word"><span class="art" id="a${i}">___</span> ${d.w}</span><span class="tr">${d.tr}</span></div>
-      <div class="chips">${ARTS.map(a=>`<button class="chip" data-i="${i}" data-a="${a}">${a}</button>`).join("")}</div>
-      <div class="fb" id="fb${i}"></div>`;
-    list.appendChild(el);
-  });
-  list.addEventListener("click",e=>{
-    const b=e.target.closest(".chip"); if(!b) return;
-    const i=+b.dataset.i; if($("it"+i).classList.contains("checked")) return;
-    ans[i]=b.dataset.a; paintItem(i); progress(); $("hint").textContent="";
-  });
+  $("exs").innerHTML=EXERCISES.map((e,ei)=>`
+   <section class="ex"><div class="ex-h"><span class="ex-n">${ei+1}</span><span class="ex-t">${e.t}</span></div>
+   ${e.items.map((w,ii)=>{
+     const v=st.a[k(ei,ii)]||"";
+     const mk=`<div class="mk"><button class="y${st.m[k(ei,ii)]==="ok"?" on":""}" data-m="ok" data-k="${k(ei,ii)}">✓ верно</button><button class="n${st.m[k(ei,ii)]==="bad"?" on":""}" data-m="bad" data-k="${k(ei,ii)}">✗ ошибка</button></div>`;
+     const rc=st.m[k(ei,ii)]==="ok"?" m-ok":st.m[k(ei,ii)]==="bad"?" m-bad":"";
+     if(e.type==="choice") return `<div class="row${rc}${e.options.length<=2?" inline":""}"><div class="w">${e.slot?`<span class="slot" id="s${k(ei,ii)}">${esc(v)||"&nbsp;"}</span>`:""}${w}</div>
+       <div class="chips">${e.options.map(o=>`<button class="chip${v===o?" sel":""}" data-k="${k(ei,ii)}" data-v="${o}">${o}</button>`).join("")}</div>${mk}</div>`;
+     return `<div class="row${rc}"><div class="w">${w}</div><input class="in" data-k="${k(ei,ii)}" value="${esc(v)}" placeholder="${e.ph}" autocapitalize="off" autocomplete="off" spellcheck="false">${mk}</div>`;
+   }).join("")}</section>`).join("");
 }
-function paintItem(i){
-  document.querySelectorAll(`#it${i} .chip`).forEach(c=>c.classList.toggle("sel",c.dataset.a===ans[i]));
-  $("a"+i).textContent=ans[i]||"___";
-}
+document.addEventListener("click",ev=>{
+  const m=ev.target.closest(".mk button");
+  if(m){const key=m.dataset.k; st.m[key]= st.m[key]===m.dataset.m?"":m.dataset.m;
+    const row=m.closest(".row"); row.classList.toggle("m-ok",st.m[key]==="ok"); row.classList.toggle("m-bad",st.m[key]==="bad");
+    m.parentNode.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x.dataset.m===st.m[key])); save(); return;}
+  const b=ev.target.closest(".chip"); if(!b) return;
+  const key=b.dataset.k, v=b.dataset.v;
+  st.a[key]= st.a[key]===v ? "" : v;
+  b.parentNode.querySelectorAll(".chip").forEach(c=>c.classList.toggle("sel",c.dataset.v===st.a[key]));
+  const s=$("s"+key); if(s) s.innerHTML=esc(st.a[key])||"&nbsp;";
+  save();
+});
+document.addEventListener("input",ev=>{
+  const i=ev.target;
+  if(i.dataset.k){st.a[i.dataset.k]=i.value;save();}
+});
+function filled(){return Object.values(st.a).filter(v=>v&&v.trim()).length}
+function marks(){const v=Object.values(st.m);return{ok:v.filter(x=>x==="ok").length,bad:v.filter(x=>x==="bad").length}}
 function progress(){
-  const n=ans.filter(Boolean).length;
-  $("progTxt").textContent=`Отвечено ${n} из ${DATA.length}`;
-  const p=Math.round(n/DATA.length*100);
-  $("progPct").textContent=p+"%"; $("progBar").style.width=p+"%";
+  if(st.check){const c=marks(), n=c.ok+c.bad, p=Math.round(n/total*100);
+    $("progTxt").textContent=`Проверено ${n} из ${total} · ✓ ${c.ok} · ✗ ${c.bad}`; $("progPct").textContent=p+"%"; $("progBar").style.width=p+"%"; return;}
+  const n=filled(), p=Math.round(n/total*100);
+  $("progTxt").textContent=`Заполнено ${n} из ${total}`; $("progPct").textContent=p+"%"; $("progBar").style.width=p+"%";
 }
-function check(){
-  const empty=ans.map((a,i)=>a?null:i+1).filter(x=>x);
-  if(empty.length){
-    $("hint").textContent=`Осталось ответить: ${empty.join(", ")}`;
-    const first=$("it"+(empty[0]-1)); first.scrollIntoView({behavior:"smooth",block:"center"});
-    return;
+$("finishBtn").onclick=()=>{
+  const n=filled();
+  if(st.check){const c=marks();
+    $("doneB").textContent=`${c.ok} из ${total}`;
+    $("doneT").textContent=c.bad?`Ошибок: ${c.bad}. Они подсвечены, их можно повторить.`:"Ни одной ошибки. ¡Muy bien!";
+    $("doneP").textContent= c.ok+c.bad<total?`Не отмечено: ${total-c.ok-c.bad}. Можно вернуться и доотметить.`:"Проверка закончена. Результат сохранён на этом устройстве.";
+    $("checkModeBtn").style.display="none";
+  } else {
+  $("doneB").textContent="¡Listo!"; $("checkModeBtn").style.display="block";
+  $("doneT").textContent= n===total ? "Все задания заполнены." : `Заполнено ${n} из ${total}. Можно вернуться и дописать.`;
   }
-  checked=true; let score=0; const errs=[];
-  DATA.forEach((d,i)=>{
-    const it=$("it"+i), ok=d.ok.includes(ans[i]);
-    it.classList.remove("ok","bad"); it.classList.add("checked",ok?"ok":"bad");
-    it.querySelectorAll(".chip").forEach(c=>c.classList.toggle("right",!ok&&d.ok.includes(c.dataset.a)));
-    $("fb"+i).innerHTML= ok ? `<strong>Верно.</strong> ${d.ok.length>1?d.ex:""}` : `<strong>Правильно: ${d.ok.join(" / ")} ${d.w}.</strong> ${d.ex}`;
-    if(ok) score++; else errs.push(i);
-  });
-  showResult(score,errs);
-}
-function verdict(s){
-  if(s===20) return "Perfecto! Ни одной ошибки.";
-  if(s>=17) return "¡Muy bien! Почти идеально, посмотри разбор ниже.";
-  if(s>=12) return "Bien. Основа есть, ошибки разобраны ниже.";
-  return "Vamos de nuevo. Посмотри шпаргалку и попробуй исправить.";
-}
-function showResult(score,errs){
-  $("scoreN").innerHTML=`${score}<small>/${DATA.length}</small>`;
-  $("scoreT").textContent=verdict(score);
-  $("resImg").src= score>=17?CAPY_OK:CAPY_STUDY;
-  $("errBox").innerHTML = errs.length
-    ? `<h2>Ошибки: ${errs.length}</h2>`+errs.map(i=>`<div class="err"><span class="n">${i+1}</span><div><span class="was">${ans[i]} ${DATA[i].w}</span> → <span class="is">${DATA[i].ok.join(" / ")} ${DATA[i].w}</span><p>${DATA[i].ex}</p></div></div>`).join("")
-    : `<p class="perfect">Все 20 артиклей на месте. Можно переходить к следующему заданию.</p>`;
-  $("fixBtn").style.display=errs.length?"block":"none";
-  $("result").classList.add("on"); $("dock").style.display="none";
-  $("result").scrollIntoView({behavior:"smooth",block:"start"});
-  window._last={score,errs};
-}
-function fix(){
-  const {errs}=window._last;
-  errs.forEach(i=>{ans[i]=null; const it=$("it"+i); it.classList.remove("checked","bad","ok"); it.querySelectorAll(".chip").forEach(c=>c.classList.remove("right")); paintItem(i);});
-  $("result").classList.remove("on"); $("dock").style.display="block"; progress();
-  $("it"+errs[0]).scrollIntoView({behavior:"smooth",block:"center"});
-}
-function reset(){
-  ans.fill(null);
-  DATA.forEach((d,i)=>{const it=$("it"+i); it.className="item"; it.querySelectorAll(".chip").forEach(c=>c.classList.remove("right")); paintItem(i);});
-  $("result").classList.remove("on"); $("dock").style.display="block"; progress();
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-async function copyRes(){
-  const {score,errs}=window._last;
-  const name=$("nm").value.trim()||"[имя]";
-  let t=`Tarea: los artículos\n${name}: ${score}/${DATA.length}\n`;
-  t+= errs.length ? "Ошибки:\n"+errs.map(i=>`${i+1}. ${ans[i]} ${DATA[i].w} → ${DATA[i].ok.join("/")} ${DATA[i].w}`).join("\n") : "Без ошибок";
-  try{ await navigator.clipboard.writeText(t); $("copied").textContent="Скопировано. Вставь в чат группы."; }
-  catch(e){ $("copied").textContent="Не получилось скопировать автоматически. Сделай скриншот результата."; }
-}
-$("checkBtn").onclick=check; $("fixBtn").onclick=fix; $("resetBtn").onclick=reset; $("copyBtn").onclick=copyRes;
-$("trToggle").onchange=e=>document.body.classList.toggle("show-tr",e.target.checked);
-render(); progress();
+  $("done").classList.add("on"); $("dock").style.display="none";
+  $("done").scrollIntoView({behavior:"smooth"});
+};
+$("backBtn").onclick=()=>{$("done").classList.remove("on");$("dock").style.display="block";window.scrollTo({top:0,behavior:"smooth"});};
+function setCheck(on){st.check=on; document.body.classList.toggle("check",on);
+  $("finishBtn").textContent=on?"Закончить проверку":"Готово"; save();}
+$("checkModeBtn").onclick=()=>{setCheck(true); $("done").classList.remove("on"); $("dock").style.display="block"; $("checkbar").scrollIntoView({behavior:"smooth",block:"start"});};
+$("clearBtn").onclick=()=>$("confirm").classList.add("on");
+$("noClear").onclick=()=>$("confirm").classList.remove("on");
+$("topClear").onclick=()=>$("confirm2").classList.add("on");
+$("noClear2").onclick=()=>$("confirm2").classList.remove("on");
+$("yesClear2").onclick=()=>{$("yesClear").click(); $("confirm2").classList.remove("on"); window.scrollTo({top:0});};
+$("yesClear").onclick=()=>{st={a:{},m:{},check:false};try{localStorage.removeItem(KEY)}catch(e){}; setCheck(false); render(); progress(); $("confirm").classList.remove("on"); $("backBtn").click();};
+render(); setCheck(!!st.check);
 </script>
 </body>
 </html>
