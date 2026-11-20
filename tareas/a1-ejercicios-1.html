@@ -78,6 +78,7 @@ body.check .row.inline{flex-wrap:wrap}
 body.check .row.inline .mk{width:100%}
 .checkbar{display:none;background:var(--blue);color:#fff;border-radius:16px;padding:12px 14px;margin-top:14px;font-size:14px}
 body.check .checkbar{display:block}
+.reset{margin-top:10px;background:none;border:none;color:var(--pink);font:600 14px Onest,sans-serif;padding:0;cursor:pointer;text-decoration:underline}
 .score{font-family:Unbounded;font-weight:800;font-size:28px;margin:4px 0 0}
 </style>
 </head>
@@ -97,6 +98,10 @@ body.check .checkbar{display:block}
 
   <div class="panel">
     <p class="note" style="margin:0">Ответы сохраняются на этом устройстве автоматически. Можно закрыть страницу и вернуться позже.</p>
+    <button class="reset" id="topClear">Начать заново</button>
+    <div class="confirm" id="confirm2" style="margin-top:10px">Стереть все ответы и отметки на этом устройстве? Вернуть их будет нельзя.
+      <div class="acts"><button class="btn main" id="yesClear2">Стереть</button><button class="btn ghost" id="noClear2">Отмена</button></div>
+    </div>
   </div>
 
   <div class="sticky">
@@ -219,6 +224,9 @@ function setCheck(on){st.check=on; document.body.classList.toggle("check",on);
 $("checkModeBtn").onclick=()=>{setCheck(true); $("done").classList.remove("on"); $("dock").style.display="block"; $("checkbar").scrollIntoView({behavior:"smooth",block:"start"});};
 $("clearBtn").onclick=()=>$("confirm").classList.add("on");
 $("noClear").onclick=()=>$("confirm").classList.remove("on");
+$("topClear").onclick=()=>$("confirm2").classList.add("on");
+$("noClear2").onclick=()=>$("confirm2").classList.remove("on");
+$("yesClear2").onclick=()=>{$("yesClear").click(); $("confirm2").classList.remove("on"); window.scrollTo({top:0});};
 $("yesClear").onclick=()=>{st={a:{},m:{},check:false};try{localStorage.removeItem(KEY)}catch(e){}; setCheck(false); render(); progress(); $("confirm").classList.remove("on"); $("backBtn").click();};
 render(); setCheck(!!st.check);
 </script>
